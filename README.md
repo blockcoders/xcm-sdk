@@ -95,7 +95,6 @@ In this milestone the focus is on creating a new sdk to send xcm messages betwee
 | 0a. | License | MIT |
 | 0b. | Documentation | We will provide both **english** and **spanish** versions of the documentation. This will cover step by step how to configure the environment and send xcm messages. |
 | 0c. | Testing Guide | Unit test and end to end tests will cover the core functions to ensure everything works as expected. The documentation will have an example on how to run these tests. |
-| 0d. | Article | We will post an article on Twitter and Reddit for both english and spanish speakers communities.
 | 1. |  |  |  
 | 2. |  |  |  
 | 3. |  |  |
