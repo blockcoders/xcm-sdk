@@ -88,17 +88,16 @@ Please also provide the GitHub accounts of all team members. If they contain no 
 - **FTE:**  2
 - **Costs:** 20,000 USD
 
-In this milestone the focus is on creating a new sdk to send xcm messages between the relay chain and parachains. The main idea is to create an interface that can handle some the xcm messages that are available in the polkadot.js library. The sdk will be written in typescript and will be able to be used in any project that is written in javascript or typescript.
+In this milestone the focus is on creating a new sdk to send xcm messages between the relay chain and parachains. The main idea is to create an interface that can handle all the xcm messages that are available in the polkadot.js library. The sdk will be written in typescript and will be able to be used in any project that is written in javascript or typescript.
 
 | Number | Deliverable | Specification | 
 | ------------- | ------------- | ------------- |
 | 0a. | License | MIT |
 | 0b. | Documentation | We will provide both **english** and **spanish** versions of the documentation. This will cover step by step how to configure the environment and send xcm messages. |
 | 0c. | Testing Guide | Unit test and end to end tests will cover the core functions to ensure everything works as expected. The documentation will have an example on how to run these tests. |
-| 1. |  |  |  
-| 2. |  |  |  
-| 3. |  |  |
-| 4. | Testing | Achieve a testing coverage of the functionalities above 90% |
+| 1. | Create Messages Types | We will define all messages types that can be sent via xcm  |  
+| 2. | Define Interface to send xcm messages | Create a function to send the messages using the types defined in (1) |  
+| 3. | Testing | Achieve a testing coverage of the functionalities above 90% |
 
 
 ### Milestone 2 - Add support for other xcm messages
@@ -107,7 +106,7 @@ In this milestone the focus is on creating a new sdk to send xcm messages betwee
 - **FTE:**  2
 - **Costs:** 10,000 USD
 
-This milestone is entirely about adding support for pending xcm messages not covered on milestone 1. 
+This milestone is entirely about adding support for pending xcm messages not covered on milestone 1.  
 
 | Number | Deliverable | Specification | 
 | ------------- | ------------- | ------------- |
@@ -115,9 +114,8 @@ This milestone is entirely about adding support for pending xcm messages not cov
 | 0b. | Documentation | We will provide both **english** and **spanish** versions of the documentation. This will cover step by step how to send all kind of xcm messages. |
 | 0c. | Testing Guide | Unit test and end to end tests will cover the core functions to ensure everything works as expected. The documentation will have an example on how to run these tests. |
 | 0d. | Article | We will post an article on Twitter and Reddit for both english and spanish speakers communities.
-| 1. |  |  |
-| 2. |  |  |  
-| 3. | Testing | Achieve a testing coverage of the functionalities above 90% |
+| 1. | Add support for potentially new messages using generics |  |
+| 2. | Testing | Achieve a testing coverage of the functionalities above 90% |
 
 ## Future Plans
 
