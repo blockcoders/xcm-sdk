@@ -1,6 +1,6 @@
 # XCM
 
- ## First Step
+ ## 1. Context
 
 ![](/.images/1.png)
 
@@ -517,7 +517,7 @@ For example, by selecting xcmPallet > send(destination, message). An extrinsic o
 
 ![](/.images/3.png)
 
-## Second step: Params
+## 2. Params
 
 ![](/.images/4.png)
 
@@ -537,8 +537,24 @@ Types
 
 ![](/.images/8.png)
 
-## Step 3: Extrinsic
+## 3. Extrinsic
 
 When an extrinsic is selected/value changed, it goes through an fn() function of the xcm message, the selected values are passed to this function and this generates the SubmittableExtrinsic
 
 ![](/.images/9.png)
+
+
+## 4. Sending Transaction
+
+Data sending to a local parachain
+
+![](/.images/10.png)
+
+logs before and after sending transaction:
+
+![](/.images/11.png)
+
+explorer log:
+
+![](/.images/12.png)
+
