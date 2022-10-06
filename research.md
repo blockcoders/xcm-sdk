@@ -2,9 +2,14 @@
 
  ## 1. Context
 
+Polkadot.js provides an XCM messages builder. This builder is a web application that allows users to build XCM messages and send them to a parachain. 
+To build the XCM messages, the user needs to know the format of the messages. This format is described in the [Polkadot Wiki](https://wiki.polkadot.network/docs/learn-xcm).
+
+The first step to create an XCM message is to select the xcmPallet and the function to use.
+
 ![](/.images/1.png)
 
-This comes from: 
+This comes from Polkadot API: 
 ```typescript
 import { ApiContext } from '@polkadot/react-api';
 const useApi = useContext(ApiContext)
