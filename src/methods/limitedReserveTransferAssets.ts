@@ -8,10 +8,11 @@ export const reserveTransferAsset = async (
   assetAmount: number,
   api: ApiPromise,
   account: AddressOrPair,
+  weightLimit?: number,
   feeAssetItem?: number
 ) => {
   // TODO: conditional version
-  const dest: XcmVersionesMultiLocation = {
+  const _dest: XcmVersionesMultiLocation = {
     V1: {
       parents: 0,
       interior: {
@@ -22,23 +23,21 @@ export const reserveTransferAsset = async (
     },
   };
 
-  const beneficiary: XcmVersionesMultiLocation = {
+  const _beneficiary: XcmVersionesMultiLocation = {
     V1: {
       parents: 0,
       interior: {
-        X1: [
-          {
-            AccountId32: {
-              network: "Any",
-              id: accountIdDestination,
-            },
+        X1: {
+          AccountId32: {
+            network: "Any",
+            id: accountIdDestination,
           },
-        ],
+        },
       },
     },
   };
 
-  const assets = {
+  const _assets = {
     V1: [
       {
         id: {
@@ -55,6 +54,6 @@ export const reserveTransferAsset = async (
   };
 
   return api.tx.xcmPallet
-    ?.reserveTransferAssets(dest, beneficiary, assets, feeAssetItem || 0)
+    ?.reserveTransferAssets(_dest, _beneficiary, _assets, feeAssetItem || 0)
     .signAndSend(account);
 };

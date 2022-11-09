@@ -66,7 +66,10 @@ type XcmV1MultiLocationJunctions =
   | X5MultiLocationJunction
   | X6MultiLocationJunction
   | X7MultiLocationJunction
-  | X8MultiLocationJunction;
+  | X8MultiLocationJunction
+  | {
+      [key: string]: XcmV1MultilocationJunctions[];
+    };
 
 interface XcmV1MultiLocation {
   V1: {
@@ -76,3 +79,24 @@ interface XcmV1MultiLocation {
 }
 
 export type XcmVersionesMultiLocation = XcmV0MultiLocation | XcmV1MultiLocation;
+
+export type XcmV2WeightLimit =
+  | "Unlimited"
+  | {
+      Limited: number;
+    };
+
+export type destination =
+  | "Parachain"
+  | "AccountId32"
+  | "AccountIndex64"
+  | "AccountKey20"
+  | "PalletInstance"
+  | "GeneralIndex"
+  | "GeneralKey"
+  | "OnlyChild";
+
+export interface DestParam {
+  dest: destination;
+  version: "V1" | "V0";
+}
