@@ -1,6 +1,9 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { AddressOrPair } from "./interfaces/generics";
-import { ReserverTransferAssetProps } from "./interfaces/methods";
+import {
+  TransferAssetsProps,
+  LimitedTransferAssetsProps,
+} from "./interfaces/methods";
 import { makeXcmVersionesMultiLocation } from "./utils";
 
 export class Provider {
@@ -31,7 +34,7 @@ export class Provider {
       .signAndSend(this.signer);
   }
 
-  public async reserveTransferAsset(props: ReserverTransferAssetProps) {
+  public async reserveTransferAssets(props: TransferAssetsProps) {
     const {
       destination,
       destinationValue,
@@ -74,6 +77,162 @@ export class Provider {
 
     return api.tx.xcmPallet
       ?.reserveTransferAssets(_dest, _beneficiary, _assets, _feeAssetItem)
+      .signAndSend(this.signer);
+  }
+
+  public async limitedTransferAssets(props: LimitedTransferAssetsProps) {
+    const {
+      destination,
+      destinationValue,
+      beneficiary,
+      beneficiaryValue,
+      amount,
+      feeAssetItem,
+      weightLimit,
+    } = props;
+
+    const api = await this.getApi();
+
+    if (!api.tx.xcmPallet?.limitedTransferAssets)
+      throw new Error("No limitedTransferAssets method found");
+
+    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+
+    let _beneficiary = makeXcmVersionesMultiLocation(
+      beneficiary,
+      beneficiaryValue
+    );
+
+    // make assets
+    let _assets = {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: "Here",
+            },
+          },
+          fun: {
+            Fungible: Number(amount),
+          },
+        },
+      ],
+    };
+
+    const _feeAssetItem = feeAssetItem || 0;
+
+    const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
+
+    return api.tx.xcmPallet
+      ?.limitedTransferAssets(
+        _dest,
+        _beneficiary,
+        _assets,
+        _feeAssetItem,
+        _weightLimit
+      )
+      .signAndSend(this.signer);
+  }
+
+  public async teleportAssets(props: TransferAssetsProps) {
+    const {
+      destination,
+      destinationValue,
+      beneficiary,
+      beneficiaryValue,
+      amount,
+      feeAssetItem,
+    } = props;
+
+    const api = await this.getApi();
+
+    if (!api.tx.xcmPallet?.teleportAssets)
+      throw new Error("No teleportAssets method found");
+
+    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+
+    let _beneficiary = makeXcmVersionesMultiLocation(
+      beneficiary,
+      beneficiaryValue
+    );
+
+    // make assets
+    let _assets = {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: "Here",
+            },
+          },
+          fun: {
+            Fungible: Number(amount),
+          },
+        },
+      ],
+    };
+
+    const _feeAssetItem = feeAssetItem || 0;
+
+    return api.tx.xcmPallet
+      ?.teleportAssets(_dest, _beneficiary, _assets, _feeAssetItem)
+      .signAndSend(this.signer);
+  }
+
+  public async limitedTeleportAssets(props: LimitedTransferAssetsProps) {
+    const {
+      destination,
+      destinationValue,
+      beneficiary,
+      beneficiaryValue,
+      amount,
+      feeAssetItem,
+      weightLimit,
+    } = props;
+
+    const api = await this.getApi();
+
+    if (!api.tx.xcmPallet?.limitedTeleportAssets)
+      throw new Error("No limitedTeleportAssets method found");
+
+    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+
+    let _beneficiary = makeXcmVersionesMultiLocation(
+      beneficiary,
+      beneficiaryValue
+    );
+
+    // make assets
+    let _assets = {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: "Here",
+            },
+          },
+          fun: {
+            Fungible: Number(amount),
+          },
+        },
+      ],
+    };
+
+    const _feeAssetItem = feeAssetItem || 0;
+
+    const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
+
+    return api.tx.xcmPallet
+      ?.limitedTeleportAssets(
+        _dest,
+        _beneficiary,
+        _assets,
+        _feeAssetItem,
+        _weightLimit
+      )
       .signAndSend(this.signer);
   }
 }
