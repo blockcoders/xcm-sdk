@@ -46,7 +46,10 @@ export class Provider {
 
     const api = await this.getApi();
 
-    if (!api.tx.xcmPallet?.reserveTransferAssets)
+    if (
+      !api.tx.xcmPallet?.reserveTransferAssets &&
+      !api.tx.polkadotXcm?.reserveTransferAssets
+    )
       throw new Error("No reserveTransferAssets method found");
 
     let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
@@ -75,7 +78,13 @@ export class Provider {
 
     const _feeAssetItem = feeAssetItem || 0;
 
-    return api.tx.xcmPallet
+    if (api.tx.xcmPallet) {
+      return api.tx.xcmPallet
+        ?.reserveTransferAssets(_dest, _beneficiary, _assets, _feeAssetItem)
+        .signAndSend(this.signer);
+    }
+
+    return api.tx.polkadotXcm
       ?.reserveTransferAssets(_dest, _beneficiary, _assets, _feeAssetItem)
       .signAndSend(this.signer);
   }
@@ -124,7 +133,19 @@ export class Provider {
 
     const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
 
-    return api.tx.xcmPallet
+    if (api.tx.xcmPallet) {
+      return api.tx.xcmPallet
+        ?.limitedTransferAssets(
+          _dest,
+          _beneficiary,
+          _assets,
+          _feeAssetItem,
+          _weightLimit
+        )
+        .signAndSend(this.signer);
+    }
+
+    return api.tx.polkadotXcm
       ?.limitedTransferAssets(
         _dest,
         _beneficiary,
@@ -147,7 +168,10 @@ export class Provider {
 
     const api = await this.getApi();
 
-    if (!api.tx.xcmPallet?.teleportAssets)
+    if (
+      !api.tx.xcmPallet?.teleportAssets &&
+      !api.tx.polkadotXcm?.teleportAssets
+    )
       throw new Error("No teleportAssets method found");
 
     let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
@@ -176,7 +200,13 @@ export class Provider {
 
     const _feeAssetItem = feeAssetItem || 0;
 
-    return api.tx.xcmPallet
+    if (api?.tx?.xcmPallet) {
+      return api.tx.xcmPallet
+        ?.teleportAssets(_dest, _beneficiary, _assets, _feeAssetItem)
+        .signAndSend(this.signer);
+    }
+
+    return api.tx.polkadotXcm
       ?.teleportAssets(_dest, _beneficiary, _assets, _feeAssetItem)
       .signAndSend(this.signer);
   }
@@ -194,7 +224,10 @@ export class Provider {
 
     const api = await this.getApi();
 
-    if (!api.tx.xcmPallet?.limitedTeleportAssets)
+    if (
+      !api.tx.xcmPallet?.limitedTeleportAssets &&
+      !api.tx.polkadotXcm?.limitedTeleportAssets
+    )
       throw new Error("No limitedTeleportAssets method found");
 
     let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
@@ -225,7 +258,18 @@ export class Provider {
 
     const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
 
-    return api.tx.xcmPallet
+    if (api.tx.xcmPallet) {
+      return api.tx.xcmPallet
+        ?.limitedTeleportAssets(
+          _dest,
+          _beneficiary,
+          _assets,
+          _feeAssetItem,
+          _weightLimit
+        )
+        .signAndSend(this.signer);
+    }
+    return api.tx.polkadotXcm
       ?.limitedTeleportAssets(
         _dest,
         _beneficiary,
