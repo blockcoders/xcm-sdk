@@ -223,8 +223,10 @@ export class Provider {
   public async limitedTeleportAssets(props: LimitedTransferAssetsProps) {
     const {
       destination,
+      destinationParents,
       destinationValue,
       beneficiary,
+      beneficiaryParents,
       beneficiaryValue,
       amount,
       feeAssetItem,
@@ -241,12 +243,14 @@ export class Provider {
 
     let _dest = makeXcmVersionesMultiLocation(
       destination as MultiLocationTypes,
-      destinationValue
+      destinationValue,
+      destinationParents
     );
 
     let _beneficiary = makeXcmVersionesMultiLocation(
       beneficiary as MultiLocationTypes,
-      beneficiaryValue
+      beneficiaryValue,
+      beneficiaryParents
     );
 
     // make assets

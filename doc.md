@@ -62,7 +62,7 @@ If you want to generate generate with mnemonic
   );
 ```
 
-## TeleportAssets
+## TeleportAssets, LimitedTeleportAssets, ReserveTransferAssets, LimitedReserveTransferAssets
 
 <table>
   <tr>
@@ -73,12 +73,20 @@ If you want to generate generate with mnemonic
     <td>destination</td>
     <td>The destination to transfer the asset, can be a parachain</td>
   </tr>
+    <td>destinationParents</td>
+    <td>0 is default, 1 when you want to transfer from parachain to relaychain or parachain to parachain</td>
+  </tr>
+  </tr>
     <td>destinationValue</td>
     <td>The destination value, for example a parachain id</td>
   </tr>
   <tr>
     <td>beneficiary</td>
     <td>beneficary target, an accountId32</td>
+  </tr>
+  </tr>
+    <td>beneficiaryParents</td>
+    <td>asset id, 0 is default</td>
   </tr>
   <tr>
     <td>beneficiaryValue</td>
@@ -87,6 +95,10 @@ If you want to generate generate with mnemonic
   <tr>
     <td>amount</td>
     <td>token amount to transfer</td>
+  </tr>
+  <tr>
+    <td>weight</td>
+    <td>only for limited methods</td>
   </tr>
 </table>
 

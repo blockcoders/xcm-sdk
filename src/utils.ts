@@ -5,7 +5,8 @@ import {
 
 export const makeXcmVersionesMultiLocation = (
   target: MultiLocationTypes,
-  value: any
+  value: any,
+  parents: number = 0
 ): XcmVersionesMultiLocation => {
   let val: XcmVersionesMultiLocation;
 
@@ -28,7 +29,7 @@ export const makeXcmVersionesMultiLocation = (
 
   val = {
     V1: {
-      parents: 0,
+      parents,
       interior: {
         X1,
       },
