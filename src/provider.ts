@@ -1,5 +1,5 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { AddressOrPair } from "./interfaces/generics";
+import { AddressOrPair, MultiLocationTypes } from "./interfaces/generics";
 import {
   TransferAssetsProps,
   LimitedTransferAssetsProps,
@@ -52,10 +52,13 @@ export class Provider {
     )
       throw new Error("No reserveTransferAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+    let _dest = makeXcmVersionesMultiLocation(
+      destination as MultiLocationTypes,
+      destinationValue
+    );
 
     let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary,
+      beneficiary as MultiLocationTypes,
       beneficiaryValue
     );
 
@@ -105,10 +108,13 @@ export class Provider {
     if (!api.tx.xcmPallet?.limitedTransferAssets)
       throw new Error("No limitedTransferAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+    let _dest = makeXcmVersionesMultiLocation(
+      destination as MultiLocationTypes,
+      destinationValue
+    );
 
     let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary,
+      beneficiary as MultiLocationTypes,
       beneficiaryValue
     );
 
@@ -174,10 +180,13 @@ export class Provider {
     )
       throw new Error("No teleportAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+    let _dest = makeXcmVersionesMultiLocation(
+      destination as MultiLocationTypes,
+      destinationValue
+    );
 
     let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary,
+      beneficiary as MultiLocationTypes,
       beneficiaryValue
     );
 
@@ -230,10 +239,13 @@ export class Provider {
     )
       throw new Error("No limitedTeleportAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(destination, destinationValue);
+    let _dest = makeXcmVersionesMultiLocation(
+      destination as MultiLocationTypes,
+      destinationValue
+    );
 
     let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary,
+      beneficiary as MultiLocationTypes,
       beneficiaryValue
     );
 

@@ -3,73 +3,47 @@ import { IKeyringPair } from "@polkadot/types/types";
 
 export declare type AddressOrPair = IKeyringPair | string | AccountId | Address;
 
-interface XcmV0MultiLocation {
-  V0:
-    | X1MultiLocationJunction
-    | X2MultiLocationJunction
-    | X3MultiLocationJunction
-    | X4MultiLocationJunction
-    | X5MultiLocationJunction
-    | X6MultiLocationJunction
-    | X7MultiLocationJunction
-    | X8MultiLocationJunction;
+export type XcmV2WeightLimit =
+  | "Unlimited"
+  | {
+      Limited: number;
+    };
+
+export interface AccountDestination {
+  network: "any";
+  id: string;
 }
 
-// TODO: move to separate file
+export type destination =
+  | "Parachain"
+  | "AccountId32"
+  | "AccountIndex64"
+  | "AccountKey20";
+
+export type MultiLocationTypes = "Parachain" | "AccountId32";
+
 type XcmV1MultilocationJunctions =
   | {
       Parachain: number;
     }
   | {
-      AccountId32: number;
-    }
-  | {};
+      AccountId32: AccountDestination;
+    };
 
 interface X1MultiLocationJunction {
   X1: XcmV1MultilocationJunctions;
 }
 
-interface X2MultiLocationJunction {
-  X2: XcmV1MultilocationJunctions[];
-}
+type XnMultiOptions = "X2" | "X3" | "X4" | "X5" | "X6" | "X7" | "X8";
 
-interface X3MultiLocationJunction {
-  X3: XcmV1MultilocationJunctions[];
-}
-
-interface X4MultiLocationJunction {
-  X4: XcmV1MultilocationJunctions[];
-}
-
-interface X5MultiLocationJunction {
-  X5: XcmV1MultilocationJunctions[];
-}
-
-interface X6MultiLocationJunction {
-  X6: XcmV1MultilocationJunctions[];
-}
-
-interface X7MultiLocationJunction {
-  X7: XcmV1MultilocationJunctions[];
-}
-
-interface X8MultiLocationJunction {
-  X8: XcmV1MultilocationJunctions[];
-}
+type XnMultiLocationJuntion = {
+  [key in XnMultiOptions]: XcmV1MultilocationJunctions[];
+};
 
 type XcmV1MultiLocationJunctions =
   | "Here"
   | X1MultiLocationJunction
-  | X2MultiLocationJunction
-  | X3MultiLocationJunction
-  | X4MultiLocationJunction
-  | X5MultiLocationJunction
-  | X6MultiLocationJunction
-  | X7MultiLocationJunction
-  | X8MultiLocationJunction
-  | {
-      [key: string]: XcmV1MultilocationJunctions[];
-    };
+  | XnMultiLocationJuntion;
 
 interface XcmV1MultiLocation {
   V1: {
@@ -78,25 +52,9 @@ interface XcmV1MultiLocation {
   };
 }
 
-export type XcmVersionesMultiLocation = XcmV0MultiLocation | XcmV1MultiLocation;
-
-export type XcmV2WeightLimit =
-  | "Unlimited"
-  | {
-      Limited: number;
-    };
-
-export type destination =
-  | "Parachain"
-  | "AccountId32"
-  | "AccountIndex64"
-  | "AccountKey20"
-  | "PalletInstance"
-  | "GeneralIndex"
-  | "GeneralKey"
-  | "OnlyChild";
+export type XcmVersionesMultiLocation = XcmV1MultiLocation;
 
 export interface DestParam {
   dest: destination;
-  version: "V1" | "V0";
+  version: "V1";
 }

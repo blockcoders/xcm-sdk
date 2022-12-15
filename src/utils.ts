@@ -1,34 +1,37 @@
-import { XcmVersionesMultiLocation } from "./interfaces/generics";
+import {
+  MultiLocationTypes,
+  XcmVersionesMultiLocation,
+} from "./interfaces/generics";
 
 export const makeXcmVersionesMultiLocation = (
-  target: any,
+  target: MultiLocationTypes,
   value: any
 ): XcmVersionesMultiLocation => {
   let val: XcmVersionesMultiLocation;
 
-  if (Array.isArray(value)) {
-    val = {
-      V1: {
-        parents: 0,
-        interior: {
-          [`X${value.length}`]: value.map((d) => ({
-            [target]: Number(d),
-          })),
-        },
-      },
+  let interior: any;
+
+  if (target === "Parachain") {
+    interior = {
+      Parachain: Number(value),
     };
-  } else {
-    val = {
-      V1: {
-        parents: 0,
-        interior: {
-          X1: {
-            [target]: Number(value),
-          },
-        },
+  }
+
+  if (target === "AccountId32") {
+    interior = {
+      target: {
+        network: "Any",
+        id: value,
       },
     };
   }
+
+  val = {
+    V1: {
+      parents: 0,
+      interior,
+    },
+  };
 
   return val;
 };
