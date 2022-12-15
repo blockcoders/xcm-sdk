@@ -1,3 +1,2 @@
-export interface Init {
-  hola: string;
-}
+export * from "./generics";
+export * from "./methods";

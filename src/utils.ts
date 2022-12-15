@@ -9,17 +9,17 @@ export const makeXcmVersionesMultiLocation = (
 ): XcmVersionesMultiLocation => {
   let val: XcmVersionesMultiLocation;
 
-  let interior: any;
+  let X1: any;
 
   if (target === "Parachain") {
-    interior = {
+    X1 = {
       Parachain: Number(value),
     };
   }
 
   if (target === "AccountId32") {
-    interior = {
-      target: {
+    X1 = {
+      [target]: {
         network: "Any",
         id: value,
       },
@@ -29,7 +29,9 @@ export const makeXcmVersionesMultiLocation = (
   val = {
     V1: {
       parents: 0,
-      interior,
+      interior: {
+        X1,
+      },
     },
   };
 

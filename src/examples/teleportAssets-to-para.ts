@@ -24,6 +24,9 @@ const main = async () => {
 
   const keyring = new Keyring({ type: "sr25519" });
   const sender = keyring.addFromUri("//Alice");
+  // const sender = keyring.addFromMnemonic(
+  //   "anchor coyote island dog filter worth ride profit wheel produce random photo"
+  // );
 
   const provider = new Provider(rpc, sender);
 
@@ -42,8 +45,8 @@ main().then(() => process.exit(1));
 
 /**
  * 
-pnpm ts-node src/examples/limitedTeleportAssets-to-para.ts \
---rpc ws://127.0.0.1:37345 \
+pnpm ts-node src/examples/teleportAssets-to-para.ts \
+--rpc ws://127.0.0.1:33521 \
 --dest Parachain \
 --destV 2000 \
 --ben AccountId32 \

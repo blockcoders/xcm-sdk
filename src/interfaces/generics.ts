@@ -10,11 +10,12 @@ export type XcmV2WeightLimit =
     };
 
 export interface AccountDestination {
-  network: "any";
+  network: "Any";
   id: string;
 }
 
 export type destination =
+  | "Here"
   | "Parachain"
   | "AccountId32"
   | "AccountIndex64"

@@ -43,7 +43,7 @@ main().then(() => process.exit(1));
 /**
  * 
 pnpm ts-node src/examples/limitedTeleportAssets-to-para.ts \
---rpc ws://127.0.0.1:37345 \
+--rpc ws://127.0.0.1:33521 \
 --dest Parachain \
 --destV 2000 \
 --ben AccountId32 \
