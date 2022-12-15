@@ -27,7 +27,7 @@ const main = async () => {
 
   const provider = new Provider(rpc, sender);
 
-  const res = await provider.reserveTransferAssets({
+  const res = await provider.teleportAssets({
     destination,
     destinationValue,
     beneficiary,
@@ -38,16 +38,15 @@ const main = async () => {
   console.log(res?.toHuman());
 };
 
-main();
+main().then(() => process.exit(1));
 
 /**
  * 
-pnpm ts-node src/examples/txassets.ts \
---rpc ws://127.0.0.1:9944 \
+pnpm ts-node src/examples/limitedTeleportAssets-to-para.ts \
+--rpc ws://127.0.0.1:37345 \
 --dest Parachain \
 --destV 2000 \
 --ben AccountId32 \
---benV 5DAAnrj7VHTznn2AWBemMuyBwZWs6FNFjdyVXUeYum3PTXFy \
---a 100000000000000
-
+--benV 0x8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48 \
+--a 1000000000000000
  */
