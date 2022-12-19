@@ -1,10 +1,15 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { AddressOrPair, MultiLocationTypes } from "./interfaces/generics";
+import { getPallet } from "./utils";
 import {
   TransferAssetsProps,
   LimitedTransferAssetsProps,
 } from "./interfaces/methods";
-import { makeXcmVersionesMultiLocation } from "./utils";
+import {
+  makeXcmVersionesMultiLocation,
+  makeAsssetMultiAsset,
+  formatExtrinsicResponse,
+} from "./utils";
 
 export class Provider {
   private rpc: string;
@@ -21,6 +26,50 @@ export class Provider {
     });
   }
 
+  private prepareExtrinsic(props: LimitedTransferAssetsProps) {
+    const {
+      destination: _destination,
+      destinationValue: _destinationValue,
+      destinationParents: _destinationParents,
+      beneficiary: _beneficiary,
+      beneficiaryValue: _beneficiaryValue,
+      beneficiaryParents: _beneficiaryParents,
+      amount: _amount,
+      feeAssetItem: _feeAssetItem,
+      weightLimit: _weightLimit,
+    } = props;
+
+    let dest = null;
+    let beneficiary = null;
+    let assets = null;
+    let feeAssetItem = null;
+    let weightLimit = null;
+
+    dest = makeXcmVersionesMultiLocation(
+      _destination as MultiLocationTypes,
+      _destinationValue
+    );
+
+    beneficiary = makeXcmVersionesMultiLocation(
+      _beneficiary as MultiLocationTypes,
+      _beneficiaryValue
+    );
+
+    assets = makeAsssetMultiAsset({ amount: _amount });
+
+    feeAssetItem = _feeAssetItem || 0;
+
+    weightLimit = _weightLimit ? { Limited: _weightLimit } : "Unlimited";
+
+    return {
+      dest,
+      beneficiary,
+      assets,
+      feeAssetItem,
+      weightLimit,
+    };
+  }
+
   public async forceDefaultXcmVersion(xcmVersion: number | string) {
     const api = await this.getApi();
 
@@ -35,15 +84,6 @@ export class Provider {
   }
 
   public async reserveTransferAssets(props: TransferAssetsProps) {
-    const {
-      destination,
-      destinationValue,
-      beneficiary,
-      beneficiaryValue,
-      amount,
-      feeAssetItem,
-    } = props;
-
     const api = await this.getApi();
 
     if (
@@ -52,126 +92,69 @@ export class Provider {
     )
       throw new Error("No reserveTransferAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(
-      destination as MultiLocationTypes,
-      destinationValue
-    );
+    const { dest, beneficiary, assets, feeAssetItem } =
+      this.prepareExtrinsic(props);
 
-    let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary as MultiLocationTypes,
-      beneficiaryValue
-    );
+    const pallet = getPallet(api);
 
-    // make assets
-    let _assets = {
-      V1: [
-        {
-          id: {
-            Concrete: {
-              parents: 0,
-              interior: "Here",
-            },
-          },
-          fun: {
-            Fungible: Number(amount),
-          },
-        },
-      ],
-    };
-
-    const _feeAssetItem = feeAssetItem || 0;
-
-    if (api.tx.xcmPallet) {
-      return api.tx.xcmPallet
-        ?.reserveTransferAssets(_dest, _beneficiary, _assets, _feeAssetItem)
-        .signAndSend(this.signer);
-    }
-
-    return api.tx.polkadotXcm
-      ?.reserveTransferAssets(_dest, _beneficiary, _assets, _feeAssetItem)
-      .signAndSend(this.signer);
+    return new Promise(async (res, rej) => {
+      api.tx[pallet]
+        ?.reserveTransferAssets(dest, beneficiary, assets, feeAssetItem)
+        .signAndSend(
+          this.signer,
+          ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+            formatExtrinsicResponse({
+              api,
+              res,
+              rej,
+              status,
+              txHash,
+              dispatchError,
+              dispatchInfo,
+            });
+          }
+        );
+    });
   }
 
   public async limitedTransferAssets(props: LimitedTransferAssetsProps) {
-    const {
-      destination,
-      destinationValue,
-      beneficiary,
-      beneficiaryValue,
-      amount,
-      feeAssetItem,
-      weightLimit,
-    } = props;
-
     const api = await this.getApi();
 
     if (!api.tx.xcmPallet?.limitedTransferAssets)
       throw new Error("No limitedTransferAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(
-      destination as MultiLocationTypes,
-      destinationValue
-    );
+    const { dest, beneficiary, assets, feeAssetItem, weightLimit } =
+      this.prepareExtrinsic(props);
 
-    let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary as MultiLocationTypes,
-      beneficiaryValue
-    );
+    const pallet = getPallet(api);
 
-    // make assets
-    let _assets = {
-      V1: [
-        {
-          id: {
-            Concrete: {
-              parents: 0,
-              interior: "Here",
-            },
-          },
-          fun: {
-            Fungible: Number(amount),
-          },
-        },
-      ],
-    };
-
-    const _feeAssetItem = feeAssetItem || 0;
-
-    const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
-
-    if (api.tx.xcmPallet) {
-      return api.tx.xcmPallet
+    return new Promise(async (res, rej) => {
+      api.tx[pallet]
         ?.limitedTransferAssets(
-          _dest,
-          _beneficiary,
-          _assets,
-          _feeAssetItem,
-          _weightLimit
+          dest,
+          beneficiary,
+          assets,
+          feeAssetItem,
+          weightLimit
         )
-        .signAndSend(this.signer);
-    }
-
-    return api.tx.polkadotXcm
-      ?.limitedTransferAssets(
-        _dest,
-        _beneficiary,
-        _assets,
-        _feeAssetItem,
-        _weightLimit
-      )
-      .signAndSend(this.signer);
+        .signAndSend(
+          this.signer,
+          ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+            formatExtrinsicResponse({
+              api,
+              res,
+              rej,
+              status,
+              txHash,
+              dispatchError,
+              dispatchInfo,
+            });
+          }
+        );
+    });
   }
 
   public async teleportAssets(props: TransferAssetsProps) {
-    const {
-      destination,
-      destinationValue,
-      beneficiary,
-      beneficiaryValue,
-      amount,
-      feeAssetItem,
-    } = props;
-
     const api = await this.getApi();
 
     if (
@@ -180,59 +163,32 @@ export class Provider {
     )
       throw new Error("No teleportAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(
-      destination as MultiLocationTypes,
-      destinationValue
-    );
+    const { dest, beneficiary, assets, feeAssetItem } =
+      this.prepareExtrinsic(props);
 
-    let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary as MultiLocationTypes,
-      beneficiaryValue
-    );
+    const pallet = getPallet(api);
 
-    // make assets
-    let _assets = {
-      V1: [
-        {
-          id: {
-            Concrete: {
-              parents: 0,
-              interior: "Here",
-            },
-          },
-          fun: {
-            Fungible: Number(amount),
-          },
-        },
-      ],
-    };
-
-    const _feeAssetItem = feeAssetItem || 0;
-
-    if (api?.tx?.xcmPallet) {
-      return api.tx.xcmPallet
-        ?.teleportAssets(_dest, _beneficiary, _assets, _feeAssetItem)
-        .signAndSend(this.signer);
-    }
-
-    return api.tx.polkadotXcm
-      ?.teleportAssets(_dest, _beneficiary, _assets, _feeAssetItem)
-      .signAndSend(this.signer);
+    return new Promise(async (res, rej) => {
+      api.tx[pallet]
+        ?.teleportAssets(dest, beneficiary, assets, feeAssetItem)
+        .signAndSend(
+          this.signer,
+          ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+            formatExtrinsicResponse({
+              api,
+              res,
+              rej,
+              status,
+              txHash,
+              dispatchError,
+              dispatchInfo,
+            });
+          }
+        );
+    });
   }
 
   public async limitedTeleportAssets(props: LimitedTransferAssetsProps) {
-    const {
-      destination,
-      destinationParents,
-      destinationValue,
-      beneficiary,
-      beneficiaryParents,
-      beneficiaryValue,
-      amount,
-      feeAssetItem,
-      weightLimit,
-    } = props;
-
     const api = await this.getApi();
 
     if (
@@ -241,58 +197,49 @@ export class Provider {
     )
       throw new Error("No limitedTeleportAssets method found");
 
-    let _dest = makeXcmVersionesMultiLocation(
-      destination as MultiLocationTypes,
-      destinationValue,
-      destinationParents
-    );
+    const { dest, beneficiary, assets, feeAssetItem, weightLimit } =
+      this.prepareExtrinsic(props);
 
-    let _beneficiary = makeXcmVersionesMultiLocation(
-      beneficiary as MultiLocationTypes,
-      beneficiaryValue,
-      beneficiaryParents
-    );
+    const pallet = getPallet(api);
 
-    // make assets
-    let _assets = {
-      V1: [
-        {
-          id: {
-            Concrete: {
-              parents: 0,
-              interior: "Here",
-            },
-          },
-          fun: {
-            Fungible: Number(amount),
-          },
-        },
-      ],
-    };
+    console.log("***dest***");
+    console.log(JSON.stringify(dest));
 
-    const _feeAssetItem = feeAssetItem || 0;
+    console.log("***benf***");
+    console.log(JSON.stringify(beneficiary));
 
-    const _weightLimit = weightLimit ? { Limited: weightLimit } : "Unlimited";
+    console.log("***assets***");
+    console.log(JSON.stringify(assets));
 
-    if (api.tx.xcmPallet) {
-      return api.tx.xcmPallet
+    console.log("***feeasset***");
+    console.log(JSON.stringify(feeAssetItem));
+
+    console.log("***weight***");
+    console.log(JSON.stringify(weightLimit));
+
+    return new Promise(async (res, rej) => {
+      api.tx[pallet]
         ?.limitedTeleportAssets(
-          _dest,
-          _beneficiary,
-          _assets,
-          _feeAssetItem,
-          _weightLimit
+          dest,
+          beneficiary,
+          assets,
+          feeAssetItem,
+          weightLimit
         )
-        .signAndSend(this.signer);
-    }
-    return api.tx.polkadotXcm
-      ?.limitedTeleportAssets(
-        _dest,
-        _beneficiary,
-        _assets,
-        _feeAssetItem,
-        _weightLimit
-      )
-      .signAndSend(this.signer);
+        .signAndSend(
+          this.signer,
+          ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+            formatExtrinsicResponse({
+              api,
+              res,
+              rej,
+              status,
+              txHash,
+              dispatchError,
+              dispatchInfo,
+            });
+          }
+        );
+    });
   }
 }

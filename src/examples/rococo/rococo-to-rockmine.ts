@@ -1,5 +1,5 @@
 import { Keyring } from "@polkadot/keyring";
-import { Provider } from "../provider";
+import { Provider } from "../../provider";
 import { options } from "yargs";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
 
@@ -23,11 +23,13 @@ const main = async () => {
   await cryptoWaitReady();
 
   const keyring = new Keyring({ type: "sr25519" });
-  const sender = keyring.addFromUri("//Alice");
+  const sender = keyring.addFromMnemonic("<your mnemonic seed>");
+
+  console.log(sender.address);
 
   const provider = new Provider(rpc, sender);
 
-  const res = await provider.reserveTransferAssets({
+  const res = await provider.limitedTeleportAssets({
     destination,
     destinationValue,
     beneficiary,
@@ -38,26 +40,15 @@ const main = async () => {
   console.log(res);
 };
 
-main().then(() => process.exit(0));
+main().then(() => process.exit(1));
 
-/*
-
-pnpm ts-node src/examples/reserveTransferAssets-to-para.ts \
---rpc ws://127.0.0.1:36309 \
+/**
+ * 
+pnpm ts-node src/examples/rococo/rococo-to-rockmine.ts \
+--rpc wss://rococo-rpc.polkadot.io \
 --dest Parachain \
 --destV 1000 \
 --ben AccountId32 \
---benV 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY \
---a 100000000000000
-
-*/
-
-/*
-pnpm ts-node src/examples/reserveTransferAssets-to-para.ts \
---rpc ws://127.0.0.1:46181 \
---dest Parachain \
---destV 1000 \
---ben AccountId32 \
---benV 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY \
---a 100000000000000
-*/
+--benV H25ZWNzxr7WXnzaxvCiWsYDeZDXFtNCCdHJLsuEKqz28uXL \
+--a 500000000000
+ */
