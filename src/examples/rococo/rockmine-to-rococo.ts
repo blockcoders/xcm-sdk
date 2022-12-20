@@ -1,7 +1,7 @@
 import { Keyring } from "@polkadot/keyring";
 import { Provider } from "../../provider";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
-import { rococoExampleUtils } from "./rococo-examples-utilts";
+import { rococoExampleUtils } from "./rococo-examples-utils";
 
 const main = async () => {
   const rpc = rococoExampleUtils.rockMineRpc;
@@ -9,7 +9,7 @@ const main = async () => {
   const beneficiary = "AccountId32";
   const beneficiaryValue = rococoExampleUtils.rococoDestinationAccount;
   const assetParents = 1;
-  const amount = 500000000000;
+  const amount = rococoExampleUtils.rocAmount;
 
   await cryptoWaitReady();
 

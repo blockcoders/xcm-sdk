@@ -1,10 +1,10 @@
 import { Keyring } from "@polkadot/keyring";
 import { Provider } from "../../provider";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
-import { rococoExampleUtils } from "./rococo-examples-utilts";
+import { rococoExampleUtils } from "./rococo-examples-utils";
 
 const main = async () => {
-  const rpc = rococoExampleUtils.rococoRpc;
+  const rpc = rococoExampleUtils.rockMineRpc;
   const destination = "Parachain";
   const destinationValue = rococoExampleUtils.daliParachainId; // dali parachain id
   const destinationParents = 1;
