@@ -2,16 +2,17 @@ import { u8aToHex } from "@polkadot/util";
 import { decodeAddress } from "@polkadot/util-crypto";
 import { ApiPromise } from "@polkadot/api";
 import {
-  MultiLocationTypes,
-  XcmVersionesMultiLocation,
-} from "./interfaces/generics";
+  MakeXcmVersionedMultiAssetsProps,
+  MakeXcmVersionedMultiLocationProps,
+} from "./interfaces/utils-interfaces";
+import { XcmVersionedMultiLocation } from "./interfaces/generics";
 
-export const makeXcmVersionesMultiLocation = (
-  target: MultiLocationTypes,
-  value: string | undefined,
-  parents: number = 0
-): XcmVersionesMultiLocation => {
-  let val: XcmVersionesMultiLocation;
+export const makeXcmVersionedMultiLocation = ({
+  parents,
+  target,
+  value,
+}: MakeXcmVersionedMultiLocationProps): XcmVersionedMultiLocation => {
+  let xcmVersionedMultiLocation: XcmVersionedMultiLocation;
 
   let interior: any = "Here";
 
@@ -24,13 +25,14 @@ export const makeXcmVersionesMultiLocation = (
   }
 
   if (target === "AccountId32") {
-    const isHex = value?.startsWith("0x");
+    const account = String(value);
+    const isHex = account?.startsWith("0x");
 
-    const accountId = isHex ? value : u8aToHex(decodeAddress(value));
+    const accountId = isHex ? value : u8aToHex(decodeAddress(account));
 
     interior = {
       X1: {
-        [target]: {
+        AccountId32: {
           network: "Any",
           id: accountId,
         },
@@ -38,14 +40,14 @@ export const makeXcmVersionesMultiLocation = (
     };
   }
 
-  val = {
+  xcmVersionedMultiLocation = {
     V1: {
-      parents,
+      parents: parents ? Number(parents) : 0,
       interior,
     },
   };
 
-  return val;
+  return xcmVersionedMultiLocation;
 };
 
 export const makeAsssetMultiAsset = ({
@@ -53,34 +55,35 @@ export const makeAsssetMultiAsset = ({
   palletInstance = 50,
   amount,
   parents = 0,
-}: any) => {
-  const V1 = [
-    {
-      id: {
-        Concrete: {
-          parents,
-          interior: !assetId
-            ? "Here"
-            : {
-                X2: [
-                  {
-                    PalletInstance: palletInstance,
-                  },
-                  {
-                    GeneralIndex: assetId,
-                  },
-                ],
-              },
+}: MakeXcmVersionedMultiAssetsProps) => {
+  const xcmVersionedMultiLocation = {
+    V1: [
+      {
+        id: {
+          Concrete: {
+            parents,
+            interior: !assetId
+              ? "Here"
+              : {
+                  X2: [
+                    {
+                      PalletInstance: palletInstance,
+                    },
+                    {
+                      GeneralIndex: assetId,
+                    },
+                  ],
+                },
+          },
+        },
+        fun: {
+          Fungible: Number(amount),
         },
       },
-      fun: {
-        Fungible: Number(amount),
-      },
-    },
-  ];
-  return {
-    V1,
+    ],
   };
+
+  return xcmVersionedMultiLocation;
 };
 
 export const formatExtrinsicResponse = ({
@@ -109,5 +112,9 @@ export const formatExtrinsicResponse = ({
 };
 
 export const getPallet = (api: ApiPromise) => {
+  if (!api.tx?.xcmPallet && !api.tx.polkadotXcm) {
+    throw new Error("xcmPallet or polkadotXcm unsupported");
+  }
+
   return api.tx.xcmPallet ? "xcmPallet" : "polkadotXcm";
 };

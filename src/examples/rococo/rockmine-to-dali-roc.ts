@@ -1,23 +1,22 @@
 import { Keyring } from "@polkadot/keyring";
 import { Provider } from "../../provider";
 import { cryptoWaitReady } from "@polkadot/util-crypto";
+import { rococoExampleUtils } from "./rococo-examples-utilts";
 
 const main = async () => {
-  const rpc = "wss://rococo-rockmine-rpc.polkadot.io";
+  const rpc = rococoExampleUtils.rockMineRpc;
   const destination = "Parachain";
-  const destinationValue = "2087"; // dali parachain
+  const destinationValue = rococoExampleUtils.daliParachainId; // dali parachain
   const destinationParents = 1;
   const beneficiary = "AccountId32";
-  const beneficiaryValue = "H25ZWNzxr7WXnzaxvCiWsYDeZDXFtNCCdHJLsuEKqz28uXL";
+  const beneficiaryValue = rococoExampleUtils.daliDestinationAccount;
   const assetParents = 1;
   const amount = 50000000000;
 
   await cryptoWaitReady();
 
   const keyring = new Keyring({ type: "sr25519" });
-  const sender = keyring.addFromMnemonic(
-    "trick grow portion canal wide loan clutch improve appear very security melt"
-  );
+  const sender = keyring.addFromMnemonic(rococoExampleUtils.senderMnemonic);
 
   const provider = new Provider(rpc, sender);
 

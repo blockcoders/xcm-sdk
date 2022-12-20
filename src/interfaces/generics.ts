@@ -14,12 +14,7 @@ export interface AccountDestination {
   id: string;
 }
 
-export type destination =
-  | "Here"
-  | "Parachain"
-  | "AccountId32"
-  | "AccountIndex64"
-  | "AccountKey20";
+export type destination = "Here" | "Parachain" | "AccountId32";
 
 export type MultiLocationTypes = "Parachain" | "AccountId32";
 
@@ -53,7 +48,7 @@ interface XcmV1MultiLocation {
   };
 }
 
-export type XcmVersionesMultiLocation = XcmV1MultiLocation;
+export type XcmVersionedMultiLocation = XcmV1MultiLocation;
 
 export interface DestParam {
   dest: destination;

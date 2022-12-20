@@ -4,12 +4,12 @@ import { cryptoWaitReady } from "@polkadot/util-crypto";
 import { rococoExampleUtils } from "./rococo-examples-utilts";
 
 const main = async () => {
-  const rpc = rococoExampleUtils.rockMineRpc;
-  const destinationParents = 1;
+  const rpc = rococoExampleUtils.rococoRpc;
+  const destination = "Parachain";
+  const destinationValue = rococoExampleUtils.daliParachainId;
   const beneficiary = "AccountId32";
-  const beneficiaryValue = rococoExampleUtils.rococoDestinationAccount;
-  const assetParents = 1;
-  const amount = 500000000000;
+  const beneficiaryValue = rococoExampleUtils.daliDestinationAccount;
+  const amount = 50000000000;
 
   await cryptoWaitReady();
 
@@ -18,11 +18,11 @@ const main = async () => {
 
   const provider = new Provider(rpc, sender);
 
-  const res = await provider.limitedTeleportAssets({
-    destinationParents,
+  const res = await provider.limitedReserveTransferAssets({
+    destination,
+    destinationValue,
     beneficiary,
     beneficiaryValue,
-    assetParents,
     amount,
   });
 
@@ -32,5 +32,5 @@ const main = async () => {
 main().then(() => process.exit(1));
 
 /**
-pnpm ts-node src/examples/rococo/rockmine-to-rococo.ts 
+pnpm ts-node src/examples/rococo/rococo-to-dali.ts 
  */

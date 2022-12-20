@@ -6,7 +6,7 @@ import {
   LimitedTransferAssetsProps,
 } from "./interfaces/methods";
 import {
-  makeXcmVersionesMultiLocation,
+  makeXcmVersionedMultiLocation,
   makeAsssetMultiAsset,
   formatExtrinsicResponse,
 } from "./utils";
@@ -46,16 +46,16 @@ export class Provider {
     let feeAssetItem = null;
     let weightLimit = null;
 
-    dest = makeXcmVersionesMultiLocation(
-      _destination as MultiLocationTypes,
-      _destinationValue,
-      _destinationParents
-    );
+    dest = makeXcmVersionedMultiLocation({
+      target: _destination as MultiLocationTypes,
+      value: _destinationValue,
+      parents: _assetParents,
+    });
 
-    beneficiary = makeXcmVersionesMultiLocation(
-      _beneficiary as MultiLocationTypes,
-      _beneficiaryValue
-    );
+    beneficiary = makeXcmVersionedMultiLocation({
+      target: _beneficiary as MultiLocationTypes,
+      value: _beneficiaryValue,
+    });
 
     assets = makeAsssetMultiAsset({
       amount: _amount,
@@ -92,16 +92,13 @@ export class Provider {
   public async reserveTransferAssets(props: TransferAssetsProps) {
     const api = await this.getApi();
 
-    if (
-      !api.tx.xcmPallet?.reserveTransferAssets &&
-      !api.tx.polkadotXcm?.reserveTransferAssets
-    )
+    const pallet = getPallet(api);
+
+    if (!api.tx[pallet]?.reserveTransferAssets)
       throw new Error("No reserveTransferAssets method found");
 
     const { dest, beneficiary, assets, feeAssetItem } =
       this.prepareExtrinsic(props);
-
-    const pallet = getPallet(api);
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
@@ -125,17 +122,13 @@ export class Provider {
 
   public async limitedReserveTransferAssets(props: LimitedTransferAssetsProps) {
     const api = await this.getApi();
+    const pallet = getPallet(api);
 
-    if (
-      !api.tx.xcmPallet?.limitedReserveTransferAssets &&
-      !api.tx.polkadotXcm?.limitedReserveTransferAssets
-    )
+    if (!api.tx[pallet]?.limitedReserveTransferAssets)
       throw new Error("No limitedReserveTransferAssets method found");
 
     const { dest, beneficiary, assets, feeAssetItem, weightLimit } =
       this.prepareExtrinsic(props);
-
-    const pallet = getPallet(api);
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
@@ -166,16 +159,13 @@ export class Provider {
   public async teleportAssets(props: TransferAssetsProps) {
     const api = await this.getApi();
 
-    if (
-      !api.tx.xcmPallet?.teleportAssets &&
-      !api.tx.polkadotXcm?.teleportAssets
-    )
+    const pallet = getPallet(api);
+
+    if (!api.tx[pallet]?.teleportAssets)
       throw new Error("No teleportAssets method found");
 
     const { dest, beneficiary, assets, feeAssetItem } =
       this.prepareExtrinsic(props);
-
-    const pallet = getPallet(api);
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
@@ -199,17 +189,13 @@ export class Provider {
 
   public async limitedTeleportAssets(props: LimitedTransferAssetsProps) {
     const api = await this.getApi();
+    const pallet = getPallet(api);
 
-    if (
-      !api.tx.xcmPallet?.limitedTeleportAssets &&
-      !api.tx.polkadotXcm?.limitedTeleportAssets
-    )
+    if (!api.tx[pallet]?.limitedTeleportAssets)
       throw new Error("No limitedTeleportAssets method found");
 
     const { dest, beneficiary, assets, feeAssetItem, weightLimit } =
       this.prepareExtrinsic(props);
-
-    const pallet = getPallet(api);
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
