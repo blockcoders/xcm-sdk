@@ -1,13 +1,14 @@
 import { destination } from "./generics";
 export interface TransferAssetsProps {
-  destination: destination;
+  destination?: destination;
   destinationParents?: number;
-  destinationValue: string;
+  destinationValue?: string;
   beneficiary: destination;
-  beneficiaryParents?: number;
-  beneficiaryValue: string;
+  beneficiaryValue?: string;
+  assetParents?: number;
   amount: number;
   feeAssetItem?: number;
+  assetId?: number;
 }
 
 export interface LimitedTransferAssetsProps extends TransferAssetsProps {

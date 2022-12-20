@@ -8,7 +8,7 @@ import {
 
 export const makeXcmVersionesMultiLocation = (
   target: MultiLocationTypes,
-  value: string,
+  value: string | undefined,
   parents: number = 0
 ): XcmVersionesMultiLocation => {
   let val: XcmVersionesMultiLocation;
@@ -24,7 +24,7 @@ export const makeXcmVersionesMultiLocation = (
   }
 
   if (target === "AccountId32") {
-    const isHex = value.startsWith("0x");
+    const isHex = value?.startsWith("0x");
 
     const accountId = isHex ? value : u8aToHex(decodeAddress(value));
 
@@ -52,12 +52,13 @@ export const makeAsssetMultiAsset = ({
   assetId,
   palletInstance = 50,
   amount,
+  parents = 0,
 }: any) => {
   const V1 = [
     {
       id: {
         Concrete: {
-          parents: 0,
+          parents,
           interior: !assetId
             ? "Here"
             : {

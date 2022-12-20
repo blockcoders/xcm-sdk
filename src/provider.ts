@@ -33,10 +33,11 @@ export class Provider {
       destinationParents: _destinationParents,
       beneficiary: _beneficiary,
       beneficiaryValue: _beneficiaryValue,
-      beneficiaryParents: _beneficiaryParents,
       amount: _amount,
       feeAssetItem: _feeAssetItem,
+      assetParents: _assetParents,
       weightLimit: _weightLimit,
+      assetId: _assetId,
     } = props;
 
     let dest = null;
@@ -47,7 +48,8 @@ export class Provider {
 
     dest = makeXcmVersionesMultiLocation(
       _destination as MultiLocationTypes,
-      _destinationValue
+      _destinationValue,
+      _destinationParents
     );
 
     beneficiary = makeXcmVersionesMultiLocation(
@@ -55,7 +57,11 @@ export class Provider {
       _beneficiaryValue
     );
 
-    assets = makeAsssetMultiAsset({ amount: _amount });
+    assets = makeAsssetMultiAsset({
+      amount: _amount,
+      parents: _assetParents,
+      assetId: _assetId,
+    });
 
     feeAssetItem = _feeAssetItem || 0;
 
@@ -117,11 +123,14 @@ export class Provider {
     });
   }
 
-  public async limitedTransferAssets(props: LimitedTransferAssetsProps) {
+  public async limitedReserveTransferAssets(props: LimitedTransferAssetsProps) {
     const api = await this.getApi();
 
-    if (!api.tx.xcmPallet?.limitedTransferAssets)
-      throw new Error("No limitedTransferAssets method found");
+    if (
+      !api.tx.xcmPallet?.limitedReserveTransferAssets &&
+      !api.tx.polkadotXcm?.limitedReserveTransferAssets
+    )
+      throw new Error("No limitedReserveTransferAssets method found");
 
     const { dest, beneficiary, assets, feeAssetItem, weightLimit } =
       this.prepareExtrinsic(props);
@@ -130,7 +139,7 @@ export class Provider {
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
-        ?.limitedTransferAssets(
+        ?.limitedReserveTransferAssets(
           dest,
           beneficiary,
           assets,
@@ -201,21 +210,6 @@ export class Provider {
       this.prepareExtrinsic(props);
 
     const pallet = getPallet(api);
-
-    console.log("***dest***");
-    console.log(JSON.stringify(dest));
-
-    console.log("***benf***");
-    console.log(JSON.stringify(beneficiary));
-
-    console.log("***assets***");
-    console.log(JSON.stringify(assets));
-
-    console.log("***feeasset***");
-    console.log(JSON.stringify(feeAssetItem));
-
-    console.log("***weight***");
-    console.log(JSON.stringify(weightLimit));
 
     return new Promise(async (res, rej) => {
       api.tx[pallet]
