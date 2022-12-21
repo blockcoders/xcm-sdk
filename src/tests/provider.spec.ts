@@ -8,19 +8,13 @@ import {
   XCM_PALLET_RESPONSES,
 } from "./mocks/provider-mocks";
 import sinon from "sinon";
-import { expect } from "chai";
+import { assert, expect } from "chai";
 
 describe("Provider", () => {
   beforeEach(() => {
     sinon.stub(Keyring, "default").returns({
       addFromMnemonic: () => SIGNER_MOCK,
     });
-
-    sinon.stub(ApiPromise, "create").returns({
-      tx: {
-        xcmPallet: xcmPalletMock,
-      },
-    } as any);
   });
 
   afterEach(() => {
@@ -39,6 +33,14 @@ describe("Provider", () => {
 
   describe("limited teleport assets", () => {
     it("should send teleport asset from relaychain to parachain", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {
+            limitedTeleportAssets: xcmPalletMock.limitedTeleportAssets,
+          },
+        },
+      } as any);
+
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -62,6 +64,14 @@ describe("Provider", () => {
     });
 
     it("should send teleport asset from parachain to relaychain", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {
+            limitedTeleportAssets: xcmPalletMock.limitedTeleportAssets,
+          },
+        },
+      } as any);
+
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -83,10 +93,53 @@ describe("Provider", () => {
       });
       expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets);
     });
+
+    it("should show error", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {},
+        },
+      } as any);
+
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.parachainRpc;
+      const destinationParents = 1;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.relayAccount;
+      const assetParents = 1;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      try {
+        await provider.limitedTeleportAssets({
+          destinationParents,
+          beneficiary,
+          beneficiaryValue,
+          assetParents,
+          amount,
+        });
+        assert.fail("actual", "expected", "It shouldn't work ");
+      } catch (error) {
+        expect(String(error)).to.equal(
+          "Error: No limitedTeleportAssets method found"
+        );
+      }
+    });
   });
 
   describe("teleport assets", () => {
     it("should send asset from relaychain to parachain", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {
+            teleportAssets: xcmPalletMock.teleportAssets,
+          },
+        },
+      } as any);
+
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -108,10 +161,52 @@ describe("Provider", () => {
       });
       expect(res).to.equal(XCM_PALLET_RESPONSES.teleportAssets);
     });
+
+    it("should show error", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {},
+        },
+      } as any);
+
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.rpc;
+      const destination = "Parachain";
+      const destinationValue = chainSpecsMock.parachainId;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.parachainAccount;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      try {
+        await provider.teleportAssets({
+          destination,
+          destinationValue,
+          beneficiary,
+          beneficiaryValue,
+          amount,
+        });
+        assert.fail("actual", "expected", "It shouldn't work ");
+      } catch (error) {
+        expect(String(error)).to.equal("Error: No teleportAssets method found");
+      }
+    });
   });
 
   describe("limited reserve transfer assets", () => {
     it("should transfer asset from relaychain to parachain", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {
+            limitedReserveTransferAssets:
+              xcmPalletMock.limitedReserveTransferAssets,
+          },
+        },
+      } as any);
+
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -133,10 +228,54 @@ describe("Provider", () => {
       });
       expect(res).to.equal(XCM_PALLET_RESPONSES.limitedReserveTransferAssets);
     });
+
+    it("should show error", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {},
+        },
+      } as any);
+
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.rpc;
+      const destination = "Parachain";
+      const destinationValue = chainSpecsMock.parachainId;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.parachainAccount;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      try {
+        await provider.limitedReserveTransferAssets({
+          destination,
+          destinationValue,
+          beneficiary,
+          beneficiaryValue,
+          amount,
+        });
+
+        assert.fail("actual", "expected", "It shouldn't work ");
+      } catch (error) {
+        expect(String(error)).to.equal(
+          "Error: No limitedReserveTransferAssets method found"
+        );
+      }
+    });
   });
 
   describe("reserve transfer assets", () => {
     it("should transfer asset from relaychain to parachain", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {
+            reserveTransferAssets: xcmPalletMock.reserveTransferAssets,
+          },
+        },
+      } as any);
+
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -157,6 +296,41 @@ describe("Provider", () => {
         amount,
       });
       expect(res).to.equal(XCM_PALLET_RESPONSES.reserveTransferAssets);
+    });
+
+    it("should show error", async () => {
+      sinon.stub(ApiPromise, "create").returns({
+        tx: {
+          xcmPallet: {},
+        },
+      } as any);
+
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.rpc;
+      const destination = "Parachain";
+      const destinationValue = chainSpecsMock.parachainId;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.parachainAccount;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      try {
+        await provider.reserveTransferAssets({
+          destination,
+          destinationValue,
+          beneficiary,
+          beneficiaryValue,
+          amount,
+        });
+        assert.fail("actual", "expected", "It shouldn't work ");
+      } catch (error) {
+        expect(String(error)).to.equal(
+          "Error: No reserveTransferAssets method found"
+        );
+      }
     });
   });
 });
