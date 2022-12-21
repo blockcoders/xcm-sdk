@@ -1,8 +1,10 @@
 export const chainSpecsMock = {
   rpc: "ws://localhost:40320",
   senderMnemonic: "charmander squirtle bulbasue pikachu",
+  relayAccount: "0x2222222",
   parachainId: 1000,
   parachainAccount: "0x123456789",
+  parachainRpc: "ws://localhost:41000",
 };
 
 export const SIGNER_MOCK = {

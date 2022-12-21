@@ -38,7 +38,7 @@ describe("Provider", () => {
   });
 
   describe("limited teleport assets", () => {
-    it("should send asset from relaychain to parachain", async () => {
+    it("should send teleport asset from relaychain to parachain", async () => {
       const keyring = new Keyring.default({ type: "sr25519" });
       const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
 
@@ -61,7 +61,28 @@ describe("Provider", () => {
       expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets);
     });
 
-    it.skip("should send asset from parachain to relaychain");
+    it("should send teleport asset from parachain to relaychain", async () => {
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.parachainRpc;
+      const destinationParents = 1;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.relayAccount;
+      const assetParents = 1;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      const res = await provider.limitedTeleportAssets({
+        destinationParents,
+        beneficiary,
+        beneficiaryValue,
+        assetParents,
+        amount,
+      });
+      expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets);
+    });
   });
 
   describe("teleport assets", () => {
@@ -87,7 +108,55 @@ describe("Provider", () => {
       });
       expect(res).to.equal(XCM_PALLET_RESPONSES.teleportAssets);
     });
+  });
 
-    it.skip("should send asset from parachain to relaychain");
+  describe("limited reserve transfer assets", () => {
+    it("should transfer asset from relaychain to parachain", async () => {
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.rpc;
+      const destination = "Parachain";
+      const destinationValue = chainSpecsMock.parachainId;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.parachainAccount;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      const res = await provider.limitedReserveTransferAssets({
+        destination,
+        destinationValue,
+        beneficiary,
+        beneficiaryValue,
+        amount,
+      });
+      expect(res).to.equal(XCM_PALLET_RESPONSES.limitedReserveTransferAssets);
+    });
+  });
+
+  describe("reserve transfer assets", () => {
+    it("should transfer asset from relaychain to parachain", async () => {
+      const keyring = new Keyring.default({ type: "sr25519" });
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic);
+
+      const rpc = chainSpecsMock.rpc;
+      const destination = "Parachain";
+      const destinationValue = chainSpecsMock.parachainId;
+      const beneficiary = "AccountId32";
+      const beneficiaryValue = chainSpecsMock.parachainAccount;
+      const amount = 50000000000;
+
+      const provider = new Provider(rpc, sender);
+
+      const res = await provider.reserveTransferAssets({
+        destination,
+        destinationValue,
+        beneficiary,
+        beneficiaryValue,
+        amount,
+      });
+      expect(res).to.equal(XCM_PALLET_RESPONSES.reserveTransferAssets);
+    });
   });
 });
