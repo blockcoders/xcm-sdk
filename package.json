@@ -4,15 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tx": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -t 120000 --require ts-node/register src/**/*.spec.ts --exit",
+    "pretest:watch": "npm run build:contracts",
+    "test:watch": "NODE_ENV=test mocha -t 120000 --watch --watch-files src/**/*.ts --require ts-node/register src/**/*.spec.ts",
+    "test:cov": "nyc npm run test",
+    "tx": "tsc"
   },
   "keywords": [],
   "author": "Ruben Gutierrez",
   "license": "ISC",
   "devDependencies": {
     "@polkadot/types": "^9.7.1",
+    "@types/chai": "^4.3.4",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.9",
+    "@types/sinon": "^10.0.13",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "sinon": "^15.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },

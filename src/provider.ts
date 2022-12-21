@@ -12,8 +12,8 @@ import {
 } from "./utils";
 
 export class Provider {
-  private rpc: string;
-  private signer: AddressOrPair;
+  rpc: string;
+  signer: AddressOrPair;
 
   constructor(rpc: string, signer: AddressOrPair) {
     this.rpc = rpc;
