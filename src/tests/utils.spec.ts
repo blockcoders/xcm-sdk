@@ -1,5 +1,4 @@
 import { getPallet } from "../utils";
-import { ApiPromise } from "@polkadot/api";
 import { expect, assert } from "chai";
 
 describe("Utils", () => {
@@ -7,7 +6,7 @@ describe("Utils", () => {
     it("should return xcmPallet", () => {
       const mockApi = {
         tx: { xcmPallet: { reserveTransferAssets: () => null } },
-      } as ApiPromise;
+      } as any;
 
       const pallet = getPallet(mockApi);
 
@@ -17,7 +16,7 @@ describe("Utils", () => {
     it("should return polkadotXcm", () => {
       const mockApi = {
         tx: { polkadotXcm: { reserveTransferAssets: () => null } },
-      } as ApiPromise;
+      } as any;
       const pallet = getPallet(mockApi);
 
       expect(pallet).to.equal("polkadotXcm");
@@ -26,7 +25,7 @@ describe("Utils", () => {
     it("should return error", () => {
       const mockApi = {
         tx: { xTokens: { transfer: () => null } },
-      } as ApiPromise;
+      } as any;
 
       try {
         getPallet(mockApi);
