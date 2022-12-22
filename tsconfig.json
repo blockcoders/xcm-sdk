@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES2015",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -30,6 +30,6 @@
     "noEmitOnError": true,
     "preserveSymlinks": true,
     "preserveWatchOutput": true,
-    "pretty": false
+    "pretty": false,
   },
 }
