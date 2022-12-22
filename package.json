@@ -20,7 +20,7 @@
     "build": "tsc --build ./tsconfig.build.json",
     "prebuild-all": "npm run clean",
     "build-all": "npm run build-cjs && npm run build-esnext && npm run build-esm",
-    "build-cjs": "tsc -p tsconfig.build.json --outDir lib -t es3 -m commonjs",
+    "build-cjs": "tsc -p tsconfig.build.json --outDir lib -t es2015 -m commonjs",
     "build-esnext": "tsc -p tsconfig.build.json --outDir lib.esnext -t es2015 -m commonjs",
     "build-esm": "tsc -p tsconfig.build.json --outDir lib.esm -t es2015 -m es2015",
     "lint:ci": "eslint \"{src,apps,libs,test}/**/*.ts\"",
