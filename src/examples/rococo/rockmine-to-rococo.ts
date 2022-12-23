@@ -32,5 +32,5 @@ const main = async () => {
 main().then(() => process.exit(1));
 
 /**
-pnpm ts-node src/examples/rococo/rockmine-to-rococo.ts 
+npx ts-node src/examples/rococo/rockmine-to-rococo.ts 
  */

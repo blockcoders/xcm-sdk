@@ -37,5 +37,5 @@ main().then(() => process.exit(1));
 
 /**
  * 
-pnpm ts-node src/examples/rococo/rockmine-to-dali-asset.ts
+npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
  */
