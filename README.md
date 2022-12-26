@@ -33,7 +33,7 @@ const provider = new Provider(rpc, sender)
   </tr>
     <tr>
     <td>sender</td>
-    <td>signer to sign the transaction</td>
+    <td>signer of the transaction</td>
   </tr>
 </table>
 
