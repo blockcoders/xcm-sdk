@@ -26,6 +26,24 @@ describe('Provider', () => {
     expect(provider.signer).to.equal(SIGNER_MOCK)
   })
 
+  it('should save injecto signer', () => {
+    const fakeInjector = {
+      signer: {
+        signPayload: () => null,
+        signRaw: () => null,
+        update: () => null,
+      },
+    }
+
+    const rpc = chainSpecsMock.rpc
+    const accountId = '0x12345'
+
+    const provider = new Provider(rpc, accountId)
+    provider.setSigner(fakeInjector.signer as any)
+
+    expect(JSON.stringify(provider.injectorSigner)).to.equal(JSON.stringify(fakeInjector.signer))
+  })
+
   describe('limited teleport assets', () => {
     it('should send teleport asset from relaychain to parachain', async () => {
       sinon.stub(ApiPromise, 'create').returns({
