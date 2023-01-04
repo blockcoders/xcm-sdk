@@ -18,6 +18,6 @@ tsconfig.json
 .env.sample
 .env
 .vscode/settings.json
-./docs
-.images
+.docs/
+.images/
 CODEOWNERS
