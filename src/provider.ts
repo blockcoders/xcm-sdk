@@ -1,4 +1,5 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
+import { Signer } from '@polkadot/types/types'
 import { AddressOrPair, MultiLocationTypes } from './interfaces/generics'
 import { TransferAssetsProps, LimitedTransferAssetsProps } from './interfaces/methods'
 import { getPallet } from './utils'
@@ -7,6 +8,7 @@ import { makeXcmVersionedMultiLocation, makeAsssetMultiAsset, formatExtrinsicRes
 export class Provider {
   rpc: string
   signer: AddressOrPair
+  injectorSigner: Signer | null = null
 
   constructor(rpc: string, signer: AddressOrPair) {
     this.rpc = rpc
@@ -14,9 +16,15 @@ export class Provider {
   }
 
   private async getApi() {
-    return await ApiPromise.create({
+    const api = await ApiPromise.create({
       provider: new WsProvider(this.rpc),
     })
+
+    if (this.injectorSigner) {
+      api.setSigner(this.injectorSigner)
+    }
+
+    return api
   }
 
   private prepareExtrinsic(props: LimitedTransferAssetsProps) {
@@ -66,6 +74,10 @@ export class Provider {
       feeAssetItem,
       weightLimit,
     }
+  }
+
+  public async setSigner(signer: Signer) {
+    this.injectorSigner = signer
   }
 
   public async reserveTransferAssets(props: TransferAssetsProps) {

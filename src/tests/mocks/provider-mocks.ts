@@ -99,3 +99,11 @@ export const xcmPalletMock = {
 }
 
 export const RPC_MOCK = 'ws://localhost:32011'
+
+export const injectorMock = {
+  signer: {
+    signPayload: () => null,
+    signRaw: () => null,
+    update: () => null,
+  },
+}

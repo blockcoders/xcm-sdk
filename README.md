@@ -56,22 +56,41 @@ const provider = new Provider(rpc, sender)
 If you want to sign with Alice in a local node:
 
 ```ts
-  const rpc = "ws://127.0.0.1:37345"
-  await cryptoWaitReady();
+import { Keyring } from '@polkadot/keyring'
+import { cryptoWaitReady } from '@polkadot/util-crypto'
 
-  const keyring = new Keyring({ type: "sr25519" });
-  const sender = keyring.addFromUri("//Alice");
+const rpc = "ws://127.0.0.1:37345" // local node ws
+await cryptoWaitReady();
 
-  const provider = new Provider(rpc, sender);
+const keyring = new Keyring({ type: "sr25519" });
+const sender = keyring.addFromUri("//Alice");
+
+const provider = new Provider(rpc, sender);
 
 ```
 
 If you want to sign with mnemonic
 
 ```ts
-  const sender = keyring.addFromMnemonic(
-    "<your mnemonic seed here>"
-  );
+import { Keyring } from '@polkadot/keyring'
+
+const sender = keyring.addFromMnemonic(
+"<your mnemonic seed here>"
+);
+```
+
+If you want to sign with polkadotjs extension
+```ts
+import { web3FromAddress, web3Accounts, web3Enable } from "@polkadot/extension-dapp";
+
+const extensions = await web3Enable("<your app name>");
+const accounts = await web3Accounts();
+const accountId = accounts[0].address;
+
+const injector = await web3FromAddress(accountId);
+
+const provider = new Provider(rpc, accountId);
+provider.setSigner(injector.signer);
 ```
 
 ## Supported Methods

@@ -3,7 +3,7 @@ import * as Keyring from '@polkadot/keyring'
 import { assert, expect } from 'chai'
 import sinon from 'sinon'
 import { Provider } from '../provider'
-import { chainSpecsMock, SIGNER_MOCK, xcmPalletMock, XCM_PALLET_RESPONSES } from './mocks/provider-mocks'
+import { chainSpecsMock, injectorMock, SIGNER_MOCK, xcmPalletMock, XCM_PALLET_RESPONSES } from './mocks/provider-mocks'
 
 describe('Provider', () => {
   beforeEach(() => {
@@ -24,6 +24,16 @@ describe('Provider', () => {
 
     expect(provider.rpc).to.equal(chainSpecsMock.rpc)
     expect(provider.signer).to.equal(SIGNER_MOCK)
+  })
+
+  it('should save injecto signer', () => {
+    const rpc = chainSpecsMock.rpc
+    const accountId = '0x12345'
+
+    const provider = new Provider(rpc, accountId)
+    provider.setSigner(injectorMock.signer as any)
+
+    expect(JSON.stringify(provider.injectorSigner)).to.equal(JSON.stringify(injectorMock.signer))
   })
 
   describe('limited teleport assets', () => {
@@ -47,6 +57,39 @@ describe('Provider', () => {
       const amount = 50000000000
 
       const provider = new Provider(rpc, sender)
+
+      const res = await provider.limitedTeleportAssets({
+        destination,
+        destinationValue,
+        beneficiary,
+        beneficiaryValue,
+        amount,
+      })
+      expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets)
+    })
+
+    it('should send teleport asset from relaychain to parachain with injector', async () => {
+      sinon.stub(ApiPromise, 'create').returns({
+        tx: {
+          xcmPallet: {
+            limitedTeleportAssets: xcmPalletMock.limitedTeleportAssets,
+          },
+        },
+        setSigner: (signer: any) => null,
+      } as any)
+
+      const sender = '0x12345'
+
+      const rpc = chainSpecsMock.rpc
+      const destination = 'Parachain'
+      const destinationValue = chainSpecsMock.parachainId
+      const beneficiary = 'AccountId32'
+      const beneficiaryValue = chainSpecsMock.parachainAccount
+      const amount = 50000000000
+
+      const provider = new Provider(rpc, sender)
+
+      provider.setSigner(injectorMock.signer as any)
 
       const res = await provider.limitedTeleportAssets({
         destination,
