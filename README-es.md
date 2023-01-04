@@ -82,10 +82,11 @@ provider.reserveTransferAssets(params);
     <td>destination</td>
     <td>El destino para transferir el activo. Si desea transferir activos de la cadena 'relay/principal' a una cadena 'parachain', configure 'Parachain'. Predeterminado 'Here'.</td>
   </tr>
+  <tr>
     <td>destinationParents</td>
     <td>0 es el valor predeterminado, 1 cuando desea transferir de parachain a relaychain o de parachain a parachain</td>
   </tr>
-  </tr>
+  <tr>
     <td>destinationValue</td>
     <td>El valor de destino, por ejemplo, una identificación de parachain</td>
   </tr>
@@ -93,7 +94,7 @@ provider.reserveTransferAssets(params);
     <td>beneficiary</td>
     <td>objetivo del beneficiario, una accountId32</td>
   </tr>
-  </tr>
+  <tr>
     <td>beneficiaryParents</td>
     <td>0 por defecto</td>
   </tr>
@@ -105,6 +106,7 @@ provider.reserveTransferAssets(params);
     <td>amount</td>
     <td>cantidad de tokens a transferir</td>
   </tr>
+  <tr>
     <td>assetId</td>
     <td>El identificador del asset para transferir desde una parachain, asegúrese de que la parachain admita el activo y que la cuenta del remitente tenga suficientes activos para transferir</td>
   </tr>
