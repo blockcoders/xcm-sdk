@@ -99,7 +99,7 @@ provider.reserveTransferAssets(params);
     <td>destinationParents</td>
     <td>0 es el valor predeterminado, 1 cuando desea transferir de parachain a relaychain o de parachain a parachain</td>
   </tr>
-  </tr>
+  <tr>
     <td>destinationValue</td>
     <td>El valor de destino, por ejemplo, una identificación de parachain</td>
   </tr>

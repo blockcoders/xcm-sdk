@@ -102,7 +102,7 @@ provider.reserveTransferAssets(params)
     <td>destinationParents</td>
     <td>0 is default, 1 when you want to transfer from parachain to relaychain or parachain to parachain</td>
   </tr>
-  </tr>
+  <tr>
     <td>destinationValue</td>
     <td>The destination value, for example a parachain id</td>
   </tr>
