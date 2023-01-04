@@ -1,22 +1,36 @@
-# XCM SDK
+XCM SDK
+=======
 
-## Install
+[![npm](https://img.shields.io/npm/v/xcm-sdk)](https://www.npmjs.com/package/xcm-sdk)
+[![CircleCI](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main.svg?style=svg)](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main)
+[![Coverage Status](https://coveralls.io/repos/github/blockcoders/xcm-sdk/badge.svg?branch=main)](https://coveralls.io/github/blockcoders/xcm-sdk?branch=main)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/943e9d8d050d4f129d2a2c63afdd419b)](https://www.codacy.com/gh/blockcoders/xcm-sdk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blockcoders/xcm-sdk&amp;utm_campaign=Badge_Grade)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![CodeQL](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml)
+
+## About
+
+XCM SDK is a tool that provides an interface to send XCM messages for Substrate based blockchains. This library is written in Typescript so it can be imported in a whole new set of applications or dApps that use Javascript/Typescript engines such as Node.
+
+## Get Started
+
+### Install
 
 ```sh
-npm i <pending>
+npm i xcm-sdk
 ```
 
-## Usage
+### Usage
 
 ```ts
 // JavaScript
-const { Provider } = require("<pending>")
+const { Provider } = require("xcm-sdk")
 
 // TypeScript
-import { Provider } from "<pending>"
+import { Provider } from "xcm-sdk"
 ```
 
-## Provider
+### Provider
 
 ```ts
 const provider = new Provider(rpc, sender)
@@ -200,3 +214,21 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
   });
 
 ```
+
+## Change Log
+
+See [Changelog](CHANGELOG.md) for more information.
+
+## Contributing
+
+Contributions welcome! See [Contributing](CONTRIBUTING.md).
+
+## Collaborators
+
+- [**Jose Ramirez**](https://github.com/0xslipk)
+- [**Fernando Sirni**](https://github.com/fersirni)
+- [**Ruben Gutierrez**](https://github.com/RubenGutierrezC)
+
+## License
+
+Licensed under the MIT - see the [LICENSE](LICENSE) file for details.

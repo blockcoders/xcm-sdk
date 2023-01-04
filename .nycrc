@@ -15,7 +15,7 @@
     "**/*.spec.ts",
     "src/tests/**/*",
     "src/examples/**/*",
-    "src/interfaces/**/*",
+    "src/interfaces/index.ts",
     "src/index.ts"
   ],
   "sourceMap": true,

@@ -1,13 +1,13 @@
-# XCM
+# XCM SDK Research
 
- ## 1. Context
+## 1. Context
 
 Polkadot.js provides an XCM messages builder. This builder is a web application that allows users to build XCM messages and send them to a parachain. 
 To build the XCM messages, the user needs to know the format of the messages. This format is described in the [Polkadot Wiki](https://wiki.polkadot.network/docs/learn-xcm).
 
 The first step to create an XCM message is to select the xcmPallet and the function to use.
 
-![](/.images/1.png)
+![](../.images/1.png)
 
 This comes from Polkadot API: 
 ```typescript
@@ -17,7 +17,7 @@ const { api } = useApi();
 api.tx['xcmPallet']
 ```
 
-![](/.images/2.png)
+![](../.images/2.png)
 
 ```json
 {
@@ -520,46 +520,49 @@ api.tx['xcmPallet']
 
 For example, by selecting xcmPallet > send(destination, message). An extrinsic object is generated:
 
-![](/.images/3.png)
+![](../.images/3.png)
 
 ## 2. Params
 
-![](/.images/4.png)
+![](../.images/4.png)
 
 Transaction Parameters
 
-![](/.images/5.png)
+![](../.images/5.png)
 
 Parachain Id
 
-![](/.images/6.png)
+![](../.images/6.png)
 
 There are “special components” for each data type, they are displayed dynamically based on the parameters
 
-![](/.images/7.png)
+![](../.images/7.png)
 
 Types
 
-![](/.images/8.png)
+![](../.images/8.png)
 
 ## 3. Extrinsic
 
 When an extrinsic is selected/value changed, it goes through an fn() function of the xcm message, the selected values are passed to this function and this generates the SubmittableExtrinsic
 
-![](/.images/9.png)
+![](../.images/9.png)
 
 
 ## 4. Sending Transaction
 
 Data sending to a local parachain
 
-![](/.images/10.png)
+![](../.images/10.png)
 
 logs before and after sending transaction:
 
-![](/.images/11.png)
+![](../.images/11.png)
 
 explorer log:
 
-![](/.images/12.png)
+![](../.images/12.png)
 
+## License
+
+Apache license version 2.0
