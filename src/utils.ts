@@ -21,7 +21,7 @@ export const makeXcmVersionedMultiLocation = ({
 
   if (target === 'AccountId32') {
     const account = String(value)
-    const isHex = account?.startsWith('0x')
+    const isHex = account.startsWith('0x')
 
     const accountId = isHex ? value : u8aToHex(decodeAddress(account))
 
@@ -82,14 +82,7 @@ export const makeAsssetMultiAsset = ({
 export const formatExtrinsicResponse = ({ api, res, rej, status, txHash, dispatchError, dispatchInfo }: any) => {
   if (status.isInBlock || status.isFinalized) {
     if (dispatchError) {
-      if (dispatchError.isModule) {
-        const decoded = api.registry.findMetaError(dispatchError.asModule)
-        const { docs, name, section } = decoded
-
-        rej(`${section}.${name}: ${docs.join(' ')}`)
-      } else {
-        rej(dispatchError.toString())
-      }
+      rej(dispatchError.toString())
     } else if (dispatchInfo) {
       res(txHash.toString())
     }
