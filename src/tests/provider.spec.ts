@@ -89,6 +89,37 @@ describe('Provider', () => {
       expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets)
     })
 
+    it('should send teleport asset from parachain to relaychain account native format', async () => {
+      sinon.stub(ApiPromise, 'create').returns({
+        tx: {
+          xcmPallet: {
+            limitedTeleportAssets: xcmPalletMock.limitedTeleportAssets,
+          },
+        },
+      } as any)
+
+      const keyring = new Keyring.default({ type: 'sr25519' })
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic)
+
+      const rpc = chainSpecsMock.parachainRpc
+      const destinationParents = 1
+      const beneficiary = 'AccountId32'
+      const beneficiaryValue = 'FtyTjdPJkMFnF9UjQ1g6owwRGsmMGGF11FSZnq84P3yYKRD'
+      const assetParents = 1
+      const amount = 50000000000
+
+      const provider = new Provider(rpc, sender)
+
+      const res = await provider.limitedTeleportAssets({
+        destinationParents,
+        beneficiary,
+        beneficiaryValue,
+        assetParents,
+        amount,
+      })
+      expect(res).to.equal(XCM_PALLET_RESPONSES.limitedTeleportAssets)
+    })
+
     it('should show error', async () => {
       sinon.stub(ApiPromise, 'create').returns({
         tx: {

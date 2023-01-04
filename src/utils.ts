@@ -97,7 +97,9 @@ export const formatExtrinsicResponse = ({ api, res, rej, status, txHash, dispatc
 }
 
 export const getPallet = (api: ApiPromise) => {
-  if (!api.tx?.xcmPallet && !api.tx.polkadotXcm) {
+  const palletIsIncluded = Object.keys(api.tx).some((p) => ['xcmPallet', 'polkadotXcm'].includes(p))
+
+  if (!palletIsIncluded) {
     throw new Error('xcmPallet or polkadotXcm unsupported')
   }
 
