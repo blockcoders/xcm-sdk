@@ -76,7 +76,7 @@ export class Provider {
     }
   }
 
-  public async setSigner(signer: Signer) {
+  public async setInjectorSigner(signer: Signer) {
     this.injectorSigner = signer
   }
 

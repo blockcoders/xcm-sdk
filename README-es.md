@@ -88,7 +88,7 @@ const accountId = accounts[0].address;
 const injector = await web3FromAddress(accountId);
 
 const provider = new Provider(rpc, accountId);
-provider.setSigner(injector.signer);
+provider.setInjectorSigner(injector.signer);
 ```
 
 
