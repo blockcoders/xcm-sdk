@@ -31,7 +31,7 @@ describe('Provider', () => {
     const accountId = '0x12345'
 
     const provider = new Provider(rpc, accountId)
-    provider.setSigner(injectorMock.signer as any)
+    provider.setInjectorSigner(injectorMock.signer as any)
 
     expect(JSON.stringify(provider.injectorSigner)).to.equal(JSON.stringify(injectorMock.signer))
   })
@@ -89,7 +89,7 @@ describe('Provider', () => {
 
       const provider = new Provider(rpc, sender)
 
-      provider.setSigner(injectorMock.signer as any)
+      provider.setInjectorSigner(injectorMock.signer as any)
 
       const res = await provider.limitedTeleportAssets({
         destination,
