@@ -99,6 +99,7 @@ provider.reserveTransferAssets(params)
     <td>destination</td>
     <td>The destination to transfer the asset. If you want to transfer asset from relaychain to a parachain set 'Parachain'. Default 'Here'. </td>
   </tr>
+  <tr>
     <td>destinationParents</td>
     <td>0 is default, 1 when you want to transfer from parachain to relaychain or parachain to parachain</td>
   </tr>
@@ -110,7 +111,7 @@ provider.reserveTransferAssets(params)
     <td>beneficiary</td>
     <td>beneficary target, an accountId32</td>
   </tr>
-  </tr>
+  <tr>
     <td>beneficiaryParents</td>
     <td>0 is default</td>
   </tr>
@@ -122,6 +123,7 @@ provider.reserveTransferAssets(params)
     <td>amount</td>
     <td>token amount to transfer</td>
   </tr>
+  <tr>
     <td>assetId</td>
     <td>AssetId to transfer from parachain, make sure the parchain support the asset and the sender account have enough asset to transfer</td>
   </tr>
@@ -136,7 +138,7 @@ Depends on the parachain or relay chain configuration you have to use Asset tele
 
 ## Rococo examples
 
-If you want to tests in Testnet, you have Rococo. 
+If you want to tests in Testnet, you have Rococo.
 </br>
 Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.org">Rococo faucet</a>
 

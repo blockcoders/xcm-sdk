@@ -66,10 +66,27 @@ export const xcmPalletMock = {
   }),
   limitedTeleportAssets: () => ({
     signAndSend: (signer: any, cb: any) => {
-      const status = { isInBlock: true }
+      const status = { isInBlock: true, isFinalized: true }
       const txHash = XCM_PALLET_RESPONSES.limitedTeleportAssets
       const dispatchError = ''
       const dispatchInfo = {}
+
+      return cb({
+        status,
+        txHash,
+        dispatchError,
+        dispatchInfo,
+      })
+    },
+  }),
+  limitedTeleportAssetsWithError: () => ({
+    signAndSend: (signer: any, cb: any) => {
+      const status = { isInBlock: true, isFinalized: true }
+      const txHash = XCM_PALLET_RESPONSES.limitedTeleportAssets
+      const dispatchError = {
+        toString: () => 'tx error',
+      }
+      const dispatchInfo = ''
 
       return cb({
         status,
