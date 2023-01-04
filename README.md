@@ -212,7 +212,20 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
     beneficiaryValue,
     amount,
   });
+```
 
+## Testing
+
+Running the unit tests.
+
+```sh
+npm run test
+```
+
+Running the test coverage.
+
+```sh
+npm run test:cov
 ```
 
 ## Change Log

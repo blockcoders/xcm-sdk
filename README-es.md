@@ -213,6 +213,20 @@ const res = await provider.limitedReserveTransferAssets({
 });
 ```
 
+## Probar
+
+Ejecución de las pruebas unitarias.
+
+```sh
+npm run test
+```
+
+Ejecución de la cobertura de pruebas.
+
+```sh
+npm run test:cov
+```
+
 ## Registro de cambios
 
 Consulte [Changelog](CHANGELOG.md) para más información.
