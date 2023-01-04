@@ -10,10 +10,10 @@ npm i <pending>
 
 ```ts
 // JavaScript
-const { Provider } = require("<pending>");
+const { Provider } = require("xcm-sdk");
 
 // TypeScript
-import { Provider } from "<pending>";
+import { Provider }  from "xcm-sdk";
 ```
 
 ## Proveedor
