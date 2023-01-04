@@ -56,7 +56,10 @@ const provider = new Provider(rpc, sender);
 Si quieres firmar con Alice en un nodo local:
 
 ```ts
-const rpc = "ws://127.0.0.1:37345";
+import { Keyring } from '@polkadot/keyring'
+import { cryptoWaitReady } from '@polkadot/util-crypto'
+
+const rpc = "ws://127.0.0.1:37345"; // ws del nodo local
 await cryptoWaitReady();
 
 const keyring = new Keyring({ type: "sr25519" });
@@ -68,8 +71,26 @@ const provider = new Provider(rpc, sender);
 Si quieres firmar con una semilla mnemotécnica
 
 ```ts
+import { Keyring } from '@polkadot/keyring'
+
+
 const sender = keyring.addFromMnemonic("<your mnemonic seed here>");
 ```
+
+Si quieres firmar con la extensión de polkadotjs
+```ts
+import { web3FromAddress, web3Accounts, web3Enable } from "@polkadot/extension-dapp";
+
+const extensions = await web3Enable("<your app name>");
+const accounts = await web3Accounts();
+const accountId = accounts[0].address;
+
+const injector = await web3FromAddress(accountId);
+
+const provider = new Provider(rpc, accountId);
+provider.setSigner(injector.signer);
+```
+
 
 ## Metodos soportados
 
