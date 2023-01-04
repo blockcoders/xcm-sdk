@@ -1,22 +1,36 @@
-# XCM SDK
+XCM SDK
+=======
 
-## Instalar
+[![npm](https://img.shields.io/npm/v/xcm-sdk)](https://www.npmjs.com/package/xcm-sdk)
+[![CircleCI](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main.svg?style=svg)](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main)
+[![Coverage Status](https://coveralls.io/repos/github/blockcoders/xcm-sdk/badge.svg?branch=main)](https://coveralls.io/github/blockcoders/xcm-sdk?branch=main)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/943e9d8d050d4f129d2a2c63afdd419b)](https://www.codacy.com/gh/blockcoders/xcm-sdk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blockcoders/xcm-sdk&amp;utm_campaign=Badge_Grade)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![CodeQL](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml)
+
+## Acerca
+
+XCM SDK es una herramienta que proporciona una interfaz para enviar mensajes XCM para cadenas de bloques basadas en Substrate. Esta biblioteca está escrita en Typescript, por lo que se puede importar en un conjunto completamente nuevo de aplicaciones o dApps que usan motores Javascript/Typescript como Node.js.
+
+## Introduccion
+
+### Instalar
 
 ```sh
-npm i <pending>
+npm i xcm-sdk
 ```
 
-## Importar
+### Importar
 
 ```ts
 // JavaScript
-const { Provider } = require("<pending>");
+const { Provider } = require("xcm-sdk");
 
 // TypeScript
-import { Provider } from "<pending>";
+import { Provider } from "xcm-sdk";
 ```
 
-## Proveedor
+### Proveedor
 
 ```ts
 const provider = new Provider(rpc, sender);
@@ -198,3 +212,21 @@ const res = await provider.limitedReserveTransferAssets({
   amount,
 });
 ```
+
+## Registro de cambios
+
+Consulte [Changelog](CHANGELOG.md) para más información.
+
+## Contribuye
+
+¡Las contribuciones son bienvenidas! Consulte [Contributing](CONTRIBUTING.md).
+
+## Colaboradores
+
+- [**Jose Ramirez**](https://github.com/0xslipk)
+- [**Fernando Sirni**](https://github.com/fersirni)
+- [**Ruben Gutierrez**](https://github.com/RubenGutierrezC)
+
+## Licencia
+
+Con licencia MIT - consulte el archivo [LICENSE](LICENSE) para obtener más información.
