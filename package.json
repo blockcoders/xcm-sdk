@@ -1,6 +1,6 @@
 {
   "name": "xcm-sdk",
-  "version": "0.0.1-rc.2",
+  "version": "0.0.1-rc.3",
   "description": "XCM SDK is a tool that provides an interface to send XCM messages for Substrate based blockchains.",
   "author": "Blockcoders <engineering@blockcoders.io>",
   "license": "MIT",
