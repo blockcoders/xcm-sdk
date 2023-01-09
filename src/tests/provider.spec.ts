@@ -1,4 +1,4 @@
-import { ApiPromise } from '@polkadot/api'
+import { ApiPromise, WsProvider } from '@polkadot/api'
 import * as Keyring from '@polkadot/keyring'
 import { assert, expect } from 'chai'
 import sinon from 'sinon'
@@ -10,6 +10,8 @@ describe('Provider', () => {
     sinon.stub(Keyring, 'default').returns({
       addFromMnemonic: () => SIGNER_MOCK,
     })
+
+    sinon.stub(WsProvider.prototype, 'connect').resolves()
   })
 
   afterEach(() => {
@@ -26,7 +28,7 @@ describe('Provider', () => {
     expect(provider.signer).to.equal(SIGNER_MOCK)
   })
 
-  it('should save injecto signer', () => {
+  it('should save inject signer', () => {
     const rpc = chainSpecsMock.rpc
     const accountId = '0x12345'
 
@@ -75,7 +77,7 @@ describe('Provider', () => {
             limitedTeleportAssets: xcmPalletMock.limitedTeleportAssets,
           },
         },
-        setSigner: (signer: any) => null,
+        setSigner: () => null,
       } as any)
 
       const sender = '0x12345'
