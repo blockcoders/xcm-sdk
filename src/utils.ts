@@ -79,7 +79,7 @@ export const makeAsssetMultiAsset = ({
   return xcmVersionedMultiLocation
 }
 
-export const formatExtrinsicResponse = ({ api, res, rej, status, txHash, dispatchError, dispatchInfo }: any) => {
+export const formatExtrinsicResponse = ({ res, rej, status, txHash, dispatchError, dispatchInfo }: any) => {
   if (status.isInBlock || status.isFinalized) {
     if (dispatchError) {
       rej(dispatchError.toString())

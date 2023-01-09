@@ -161,7 +161,31 @@ Si quieres hacer pruebas en Testnet, tienes Rococo.
 </br>
 Consigue algunos activos: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.org">Rococo faucet</a>
 
+### Config
+Los ejemplos están en ./examples/rococo/, puede poner tu configuración en ./examples/rococo/rococo-examples-util.ts. Luego puedes ejecutar un comando por cada ejemplo. Si quieres ejecutarlos de forma manual, debes crear tu propio script (.js o .ts) e importar las dependencias.
+
+```ts
+export const rococoExampleUtils = {
+  rococoRpc: 'wss://rococo-rpc.polkadot.io',
+  rockMineRpc: 'wss://rococo-rockmine-rpc.polkadot.io',
+  rockMineParachainId: 1000,
+  daliParachainId: 2087,
+  senderMnemonic: '<your account mnemonic>',
+  rockmineDestinationAccount: '<rockmine address account>',
+  daliDestinationAccount: '<dali destination account>',
+  rococoDestinationAccount: '<rococo address account>',
+  rocAmount: <amount to transfer>,
+}
+```
+
 ### Enviar activos de Rococo a Rockmine
+
+comando:
+```ts
+npx ts-node src/examples/rococo/rococo-to-rockmine.ts
+```
+
+manual:
 
 ```ts
 const destination = "Parachain";
@@ -180,6 +204,12 @@ const res = await provider.limitedTeleportAssets({
 ```
 
 ### Enviar activos de RockMine a Rococo
+comando:
+```ts
+npx ts-node src/examples/rococo/rockmine-to-rococo.ts
+```
+
+manual:
 
 ```ts
 const destinationParents = 1; // Destination to Rococo
@@ -197,6 +227,12 @@ const res = await provider.limitedTeleportAssets({
 ```
 
 ### Enviar activos nativos (ROC) de RockMine a Dali
+comando:
+```ts
+npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
+```
+
+manual:
 
 ```ts
 const destination = "Parachain";
@@ -219,13 +255,21 @@ const res = await provider.limitedReserveTransferAssets({
 ```
 
 ### Enviar activo de Rococo a Dali
+Asegurate de tener <a href="https://polkadot.js.org/apps/#/assets/balances"> activos </a> para transferir. También es necesario cambiar el id del activo en ./examples/rococo/rockmine-to-dali-asset.ts, el valor por defecto es 1984 (Rockmine USD).
 
 ```ts
-const destination = "Parachain";
-const destinationValue = 2087;
-const beneficiary = "AccountId32";
-const beneficiaryValue = "<dali account address>";
-const amount = 1000000000000000;
+npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
+```
+
+manualy
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2087
+  const destinationParents = 1
+  const beneficiary = 'AccountId32'
+  const beneficiaryValue = "<dali account address>"
+  const assetId = 1984   // asset id in rockmine
+  const amount = 50000000000
 
 const res = await provider.limitedReserveTransferAssets({
   destination,

@@ -162,7 +162,31 @@ If you want to tests in Testnet, you have Rococo.
 Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.org">Rococo faucet</a>
 
 
+### Config
+The examples are in ./examples/rococo/, you can put your configuration in ./examples/rococo/rococo-examples-util.ts. Then you can run a command for each example. If you want to run them manually, you must create your own script (.js or ts) and import the dependencies.
+
+```ts
+export const rococoExampleUtils = {
+  rococoRpc: 'wss://rococo-rpc.polkadot.io',
+  rockMineRpc: 'wss://rococo-rockmine-rpc.polkadot.io',
+  rockMineParachainId: 1000,
+  daliParachainId: 2087,
+  senderMnemonic: '<your account mnemonic>',
+  rockmineDestinationAccount: '<rockmine address account>',
+  daliDestinationAccount: '<dali destination account>',
+  rococoDestinationAccount: '<rococo address account>',
+  rocAmount: <amount to transfer>,
+}
+```
+
 ### Send Asset from Rococo to Rockmine
+
+command:
+```ts
+npx ts-node src/examples/rococo/rococo-to-rockmine.ts
+```
+
+manually:
 ```ts
   const destination = "Parachain"
   const destinationValue = 2000 // Rockmine parchain id
@@ -180,6 +204,14 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
 ```
 
 ### Send Asset from RockMine to Rococo
+
+command:
+```ts
+npx ts-node src/examples/rococo/rockmine-to-rococo.ts
+```
+
+manualy:
+
 ```ts
   const destinationParents = 1; // Destination to Rococo
   const beneficiary = "AccountId32"
@@ -197,6 +229,12 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
 ```
 
 ### Send native Asset (ROC) from RockMine to Dali
+command:
+```ts
+npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
+```
+
+manualy:
 ```ts
   const destination = "Parachain";
   const destinationValue = 2087; // dali parachain id
@@ -218,12 +256,22 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
 ```
 
 ### Send Asset from Rococo to dali
+
+Make sure you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
+
 ```ts
-  const destination = "Parachain";
-  const destinationValue = 2087;
-  const beneficiary = "AccountId32";
-  const beneficiaryValue = "<dali account address>";
-  const amount = 1000000000000000;
+npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
+```
+
+manualy
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2087
+  const destinationParents = 1
+  const beneficiary = 'AccountId32'
+  const beneficiaryValue = "<dali account address>"
+  const assetId = 1984   // asset id in rockmine
+  const amount = 50000000000
 
 
   const res = await provider.limitedReserveTransferAssets({
@@ -234,6 +282,8 @@ Get some assets: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.or
     amount,
   });
 ```
+
+
 
 ## Testing
 
