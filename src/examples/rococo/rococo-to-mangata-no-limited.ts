@@ -4,13 +4,11 @@ import { Provider } from '../../provider'
 import { rococoExampleUtils } from './rococo-examples-utils'
 
 const main = async () => {
-  const rpc = rococoExampleUtils.rockMineRpc
+  const rpc = rococoExampleUtils.rococoRpc
   const destination = 'Parachain'
-  const destinationValue = rococoExampleUtils.daliParachainId // dali parachain
-  const destinationParents = 1
+  const destinationValue = rococoExampleUtils.mangataParachainId
   const beneficiary = 'AccountId32'
-  const beneficiaryValue = rococoExampleUtils.daliDestinationAccount
-  const assetParents = 1
+  const beneficiaryValue = rococoExampleUtils.mangataDestinationAccount
   const amount = rococoExampleUtils.rocAmount
 
   await cryptoWaitReady()
@@ -20,13 +18,11 @@ const main = async () => {
 
   const provider = new Provider(rpc, sender)
 
-  const res = await provider.limitedReserveTransferAssets({
+  const res = await provider.reserveTransferAssets({
     destination,
     destinationValue,
-    destinationParents,
     beneficiary,
     beneficiaryValue,
-    assetParents,
     amount,
   })
 
@@ -36,6 +32,5 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
- *
-npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
+npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
  */

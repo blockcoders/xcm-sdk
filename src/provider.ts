@@ -31,6 +31,7 @@ export class Provider {
     const {
       destination: _destination,
       destinationValue: _destinationValue,
+      destinationParents: _destinationParents,
       beneficiary: _beneficiary,
       beneficiaryValue: _beneficiaryValue,
       amount: _amount,
@@ -49,7 +50,7 @@ export class Provider {
     dest = makeXcmVersionedMultiLocation({
       target: _destination as MultiLocationTypes,
       value: _destinationValue,
-      parents: _assetParents,
+      parents: _destinationParents,
     })
 
     beneficiary = makeXcmVersionedMultiLocation({

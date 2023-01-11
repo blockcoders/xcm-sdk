@@ -169,11 +169,13 @@ export const rococoExampleUtils = {
   rococoRpc: 'wss://rococo-rpc.polkadot.io',
   rockMineRpc: 'wss://rococo-rockmine-rpc.polkadot.io',
   rockMineParachainId: 1000,
+  mangataParachainId: 2110,
   daliParachainId: 2087,
   senderMnemonic: '<your account mnemonic>',
   rockmineDestinationAccount: '<rockmine address account>',
   daliDestinationAccount: '<dali destination account>',
   rococoDestinationAccount: '<rococo address account>',
+  mangataDestinationAccount: '<mangata address account>',
   rocAmount: <amount to transfer>,
 }
 ```
@@ -203,6 +205,30 @@ const res = await provider.limitedTeleportAssets({
 });
 ```
 
+o
+
+command:
+```ts
+npx ts-node src/examples/rococo/rococo-to-rockmine-no-limited.ts
+```
+
+manual:
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2000 // Rockmine parchain id
+  const beneficiary = "AccountId32"
+  const beneficiaryValue = "<rockmine account address>" // account address
+  const amount = 1000000000000000
+
+  const res = await provider.teleportAssets({
+    destination,
+    destinationValue,
+    beneficiary,
+    beneficiaryValue,
+    amount,
+  });
+```
+
 ### Enviar activos de RockMine a Rococo
 comando:
 ```ts
@@ -227,11 +253,13 @@ const res = await provider.limitedTeleportAssets({
 ```
 
 ### Enviar activos nativos (ROC) de RockMine a Dali
+
+El activo ROC en Dali es el activo con id 4. Puedes chequear <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">aquí</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 4.
+
 comando:
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
 ```
-
 manual:
 
 ```ts
@@ -254,8 +282,14 @@ const res = await provider.limitedReserveTransferAssets({
 });
 ```
 
-### Enviar activo de Rococo a Dali
+ver token transferido:
+![](.images/dali-token.png)
+
+### Enviar activo de Rockmine a Dali
 Asegurate de tener <a href="https://polkadot.js.org/apps/#/assets/balances"> activos </a> para transferir. También es necesario cambiar el id del activo en ./examples/rococo/rockmine-to-dali-asset.ts, el valor por defecto es 1984 (Rockmine USD).
+
+El activo ROC en Dali es el activo con id 130. Puedes chequear <a href="https://polkadot.js.org/apps/#/chainstate">aquí</a>, <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 130.
+
 
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
@@ -279,6 +313,39 @@ const res = await provider.limitedReserveTransferAssets({
   amount,
 });
 ```
+
+see token transferido:
+![](.images/dali-usdr.png)
+
+
+### Enviar Activo de Rococo a Mangata
+
+El activo ROC en Mangata es el activo con id 4. Puedes chequear <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">aquí</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 4.
+
+comando:
+
+```ts
+npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
+```
+
+manul:
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2110 // Mangata parchain id
+  const beneficiary = "AccountId32"
+  const beneficiaryValue = "<mangata account address>" // account address
+  const amount = 1000000000000000
+
+  const res = await provider.reserveTransferAssets({
+    destination,
+    destinationValue,
+    beneficiary,
+    beneficiaryValue,
+    amount,
+  });
+```
+see token transfered:
+![](.images/mangata-roc.png)
 
 ## Probar
 

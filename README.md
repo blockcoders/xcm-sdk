@@ -170,11 +170,13 @@ export const rococoExampleUtils = {
   rococoRpc: 'wss://rococo-rpc.polkadot.io',
   rockMineRpc: 'wss://rococo-rockmine-rpc.polkadot.io',
   rockMineParachainId: 1000,
+  mangataParachainId: 2110,
   daliParachainId: 2087,
   senderMnemonic: '<your account mnemonic>',
   rockmineDestinationAccount: '<rockmine address account>',
   daliDestinationAccount: '<dali destination account>',
   rococoDestinationAccount: '<rococo address account>',
+  mangataDestinationAccount: '<mangata address account>',
   rocAmount: <amount to transfer>,
 }
 ```
@@ -203,6 +205,30 @@ manually:
   });
 ```
 
+or
+
+command:
+```ts
+npx ts-node src/examples/rococo/rococo-to-rockmine-no-limited.ts
+```
+
+manually:
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2000 // Rockmine parchain id
+  const beneficiary = "AccountId32"
+  const beneficiaryValue = "<rockmine account address>" // account address
+  const amount = 1000000000000000
+
+  const res = await provider.teleportAssets({
+    destination,
+    destinationValue,
+    beneficiary,
+    beneficiaryValue,
+    amount,
+  });
+```
+
 ### Send Asset from RockMine to Rococo
 
 command:
@@ -210,7 +236,7 @@ command:
 npx ts-node src/examples/rococo/rockmine-to-rococo.ts
 ```
 
-manualy:
+manually:
 
 ```ts
   const destinationParents = 1; // Destination to Rococo
@@ -229,12 +255,15 @@ manualy:
 ```
 
 ### Send native Asset (ROC) from RockMine to Dali
+
+The ROC asset in Dali is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
+
 command:
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
 ```
 
-manualy:
+manually:
 ```ts
   const destination = "Parachain";
   const destinationValue = 2087; // dali parachain id
@@ -255,15 +284,23 @@ manualy:
   });
 ```
 
-### Send Asset from Rococo to dali
 
-Make sure you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
+see token transfered:
+![](.images/dali-token.png)
+
+### Send Asset from Rockmine to dali
+
+<b>Make sure </b> you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
+
+The Rockminse USD asset in Dali is the asset with id 130. You can check <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 130.
+
+command:
 
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
 ```
 
-manualy
+manually:
 ```ts
   const destination = "Parachain"
   const destinationValue = 2087
@@ -271,7 +308,7 @@ manualy
   const beneficiary = 'AccountId32'
   const beneficiaryValue = "<dali account address>"
   const assetId = 1984   // asset id in rockmine
-  const amount = 50000000000
+  const amount = 1000000000000000
 
 
   const res = await provider.limitedReserveTransferAssets({
@@ -283,6 +320,38 @@ manualy
   });
 ```
 
+see token transfered:
+![](.images/dali-usdr.png)
+
+
+### Send Asset from Rococo to Mangata
+
+The ROC asset in Dali is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
+
+command:
+
+```ts
+npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
+```
+
+manually:
+```ts
+  const destination = "Parachain"
+  const destinationValue = 2110 // Mangata parchain id
+  const beneficiary = "AccountId32"
+  const beneficiaryValue = "<mangata account address>" // account address
+  const amount = 1000000000000000
+
+  const res = await provider.reserveTransferAssets({
+    destination,
+    destinationValue,
+    beneficiary,
+    beneficiaryValue,
+    amount,
+  });
+```
+see token transfered:
+![](.images/mangata-roc.png)
 
 
 ## Testing
