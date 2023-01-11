@@ -292,7 +292,7 @@ see token transfered:
 
 <b>Make sure </b> you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
 
-The Rockminse USD asset in Dali is the asset with id 130. You can check <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 130.
+The Rockmine USD asset in Dali is the asset with id 130. You can check <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 130.
 
 command:
 
@@ -326,7 +326,7 @@ see token transfered:
 
 ### Send Asset from Rococo to Mangata
 
-The ROC asset in Dali is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
+The ROC asset in Mangata is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
 
 command:
 
