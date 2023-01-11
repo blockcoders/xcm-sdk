@@ -288,7 +288,7 @@ ver token transferido:
 ### Enviar activo de Rockmine a Dali
 Asegurate de tener <a href="https://polkadot.js.org/apps/#/assets/balances"> activos </a> para transferir. También es necesario cambiar el id del activo en ./examples/rococo/rockmine-to-dali-asset.ts, el valor por defecto es 1984 (Rockmine USD).
 
-El activo ROC en Dali es el activo con id 130. Puedes chequear <a href="https://polkadot.js.org/apps/#/chainstate">aquí</a>, <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 130.
+El activo Rockmine USD en Dali es el activo con id 130. Puedes chequear <a href="https://polkadot.js.org/apps/#/chainstate">aquí</a>, <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 130.
 
 
 comando:
