@@ -1,6 +1,6 @@
 {
   "name": "xcm-sdk",
-  "version": "0.0.1-rc.4",
+  "version": "0.0.1-rc.5",
   "description": "XCM SDK is a tool that provides an interface to send XCM messages for Substrate based blockchains.",
   "author": "Blockcoders <engineering@blockcoders.io>",
   "license": "MIT",
@@ -50,19 +50,19 @@
     "multi-asset"
   ],
   "devDependencies": {
-    "@polkadot/typegen": "^9.10.5",
-    "@polkadot/types": "^9.10.5",
-    "@polkadot/api": "^9.10.5",
-    "@polkadot/keyring": "^10.2.1",
-    "@polkadot/util": "^10.2.1",
-    "@polkadot/util-crypto": "^10.2.1",
+    "@polkadot/typegen": "^9.11.1",
+    "@polkadot/types": "^9.11.1",
+    "@polkadot/api": "^9.11.1",
+    "@polkadot/keyring": "^10.2.3",
+    "@polkadot/util": "^10.2.3",
+    "@polkadot/util-crypto": "^10.2.3",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
     "@types/sinon": "^10.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.26.0",
@@ -73,14 +73,14 @@
     "nyc": "^15.1.0",
     "sinon": "^15.0.1",
     "pre-commit": "^1.2.2",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },
   "peerDependencies": {
-    "@polkadot/api": "^9.10.5",
-    "@polkadot/keyring": "^10.2.1",
-    "@polkadot/util": "^10.2.1",
-    "@polkadot/util-crypto": "^10.2.1"
+    "@polkadot/api": "^9.11.1",
+    "@polkadot/keyring": "^10.2.3",
+    "@polkadot/util": "^10.2.3",
+    "@polkadot/util-crypto": "^10.2.3"
   }
 }
