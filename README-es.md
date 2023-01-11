@@ -253,6 +253,12 @@ const res = await provider.limitedTeleportAssets({
 ```
 
 ### Enviar activos nativos (ROC) de RockMine a Dali
+comando:
+```ts
+npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
+```
+
+manual:
 
 El activo ROC en Dali es el activo con id 4. Puedes chequear <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">aquí</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 4.
 
