@@ -207,7 +207,7 @@ const res = await provider.limitedTeleportAssets({
 
 o
 
-command:
+comando:
 ```ts
 npx ts-node src/examples/rococo/rococo-to-rockmine-no-limited.ts
 ```
@@ -253,12 +253,6 @@ const res = await provider.limitedTeleportAssets({
 ```
 
 ### Enviar activos nativos (ROC) de RockMine a Dali
-comando:
-```ts
-npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
-```
-
-manual:
 
 El activo ROC en Dali es el activo con id 4. Puedes chequear <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">aquí</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 4.
 
@@ -294,14 +288,15 @@ ver token transferido:
 ### Enviar activo de Rockmine a Dali
 Asegurate de tener <a href="https://polkadot.js.org/apps/#/assets/balances"> activos </a> para transferir. También es necesario cambiar el id del activo en ./examples/rococo/rockmine-to-dali-asset.ts, el valor por defecto es 1984 (Rockmine USD).
 
-El activo ROC en Dali es el activo con id 130. Puedes chequear <a href="https://polkadot.js.org/apps/#/chainstate">aquí</a>, <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 130.
+El activo Rockmine USD en Dali es el activo con id 130. Puedes chequear <a href="https://polkadot.js.org/apps/#/chainstate">aquí</a>, <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, en "SELECTED STATE QUERY" selecciona tokens, luego en el campo u128 input pon 130.
 
 
+comando:
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
 ```
 
-manualy
+manual:
 ```ts
   const destination = "Parachain"
   const destinationValue = 2087
@@ -320,7 +315,7 @@ const res = await provider.limitedReserveTransferAssets({
 });
 ```
 
-see token transferido:
+ver token transferido:
 ![](.images/dali-usdr.png)
 
 
@@ -334,7 +329,7 @@ comando:
 npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
 ```
 
-manul:
+manual:
 ```ts
   const destination = "Parachain"
   const destinationValue = 2110 // Mangata parchain id
@@ -350,7 +345,7 @@ manul:
     amount,
   });
 ```
-see token transfered:
+ver token transferido:
 ![](.images/mangata-roc.png)
 
 ## Probar
