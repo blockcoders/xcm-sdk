@@ -348,6 +348,10 @@ manual:
 ver token transferido:
 ![](.images/mangata-roc.png)
 
+## Otros ejemplos
+
+<a href="./src/examples/local-network/readme-es.md">ejemplos en un red local</a>
+
 ## Probar
 
 Ejecución de las pruebas unitarias.
