@@ -33,7 +33,7 @@ Then, create a folder called bin with all binaries inside, copy <a href="./confi
 ./zombienet-linux -p native spawn config.toml
 ```
 
-If you you want to run it in windows see <a href="https://github.com/paritytech/zombienet">zombienet repo</a>
+If you you want to run it in windows see <a href="https://github.com/paritytech/zombienet">zombienet repo</a>.
 
 ## Relay chain and Parachains
 
@@ -44,7 +44,6 @@ There is a default config:
   <li>Statemine Parachain is in port 9910 with <Strong> id 1000 </strong> </li>
   <li>Trappist Parachain is in port 9920 with <strong> id 2000 </strong> </li>
 </ul>
-
 
 ## Config Assets
 
