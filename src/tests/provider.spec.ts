@@ -2,8 +2,8 @@ import { ApiPromise, WsProvider } from '@polkadot/api'
 import * as Keyring from '@polkadot/keyring'
 import { assert, expect } from 'chai'
 import sinon from 'sinon'
-import { Provider } from '../provider'
 import { chainSpecsMock, injectorMock, SIGNER_MOCK, xcmPalletMock, XCM_PALLET_RESPONSES } from './mocks/provider-mocks'
+import { Provider } from '../provider'
 
 describe('Provider', () => {
   beforeEach(() => {

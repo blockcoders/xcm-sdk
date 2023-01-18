@@ -1,7 +1,7 @@
 import { Keyring } from '@polkadot/keyring'
 import { cryptoWaitReady } from '@polkadot/util-crypto'
-import { Provider } from '../../provider'
 import { localNetworkUtils } from './local-network-utils'
+import { Provider } from '../../provider'
 
 const main = async () => {
   const rpc = localNetworkUtils.parachain1Rpc
