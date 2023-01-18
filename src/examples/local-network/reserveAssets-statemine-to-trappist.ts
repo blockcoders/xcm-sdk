@@ -4,12 +4,14 @@ import { Provider } from '../../provider'
 import { localNetworkUtils } from './local-network-utils'
 
 const main = async () => {
-  const rpc = localNetworkUtils.relayRpc
+  const rpc = localNetworkUtils.parachain1Rpc
   const destination = 'Parachain'
-  const destinationValue = localNetworkUtils.parachain1ChainId
+  const destinationValue = localNetworkUtils.parachain2ChainId // trappist parachain id
+  const destinationParents = 1
   const beneficiary = 'AccountId32'
-  const beneficiaryValue = localNetworkUtils.parachain1DestinationAccount
-  const amount = 10000000000000
+  const beneficiaryValue = localNetworkUtils.parachain2DestinationAccount
+  const assetId = 1 // xUSD
+  const amount = 100000000000000 // 100 xUSD
 
   await cryptoWaitReady()
 
@@ -18,11 +20,13 @@ const main = async () => {
 
   const provider = new Provider(rpc, sender)
 
-  const res = await provider.teleportAssets({
+  const res = await provider.limitedReserveTransferAssets({
     destination,
     destinationValue,
+    destinationParents,
     beneficiary,
     beneficiaryValue,
+    assetId,
     amount,
   })
 
@@ -32,5 +36,6 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
-npx ts-node src/examples/local-network/teleportAssets-to-parachain.ts
+ *
+npx ts-node src/examples/local-network/reserveAssets-statemine-to-trappist.ts
  */

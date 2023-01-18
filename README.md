@@ -354,6 +354,11 @@ see token transfered:
 ![](.images/mangata-roc.png)
 
 
+## Other examples
+
+<a href="./src/examples/local-network/readme.md">local network examples</a>
+
+
 ## Testing
 
 Running the unit tests.

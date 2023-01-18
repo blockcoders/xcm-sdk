@@ -4,12 +4,12 @@ import { Provider } from '../../provider'
 import { localNetworkUtils } from './local-network-utils'
 
 const main = async () => {
-  const rpc = localNetworkUtils.relayRpc
-  const destination = 'Parachain'
-  const destinationValue = localNetworkUtils.parachain1ChainId
+  const rpc = localNetworkUtils.parachain1Rpc
+  const destinationParents = 1
   const beneficiary = 'AccountId32'
-  const beneficiaryValue = localNetworkUtils.parachain1DestinationAccount
-  const amount = 10000000000000
+  const beneficiaryValue = localNetworkUtils.relayChainDestintionAccount
+  const assetParents = 1
+  const amount = 1000000000000
 
   await cryptoWaitReady()
 
@@ -18,11 +18,11 @@ const main = async () => {
 
   const provider = new Provider(rpc, sender)
 
-  const res = await provider.teleportAssets({
-    destination,
-    destinationValue,
+  const res = await provider.limitedTeleportAssets({
+    destinationParents,
     beneficiary,
     beneficiaryValue,
+    assetParents,
     amount,
   })
 
@@ -32,5 +32,5 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
-npx ts-node src/examples/local-network/teleportAssets-to-parachain.ts
+npx ts-node src/examples/local-network/limitedTeleportAssets-to-relaychain.ts
  */
