@@ -1,7 +1,7 @@
 import { Keyring } from '@polkadot/keyring'
 import { cryptoWaitReady } from '@polkadot/util-crypto'
-import { rococoExampleUtils } from './rococo-examples-utils'
 import { Provider } from '../../provider'
+import { rococoExampleUtils } from './rococo-examples-utils'
 
 const main = async () => {
   const rpc = rococoExampleUtils.rococoRpc
