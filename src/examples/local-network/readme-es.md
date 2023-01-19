@@ -26,7 +26,20 @@ Necesitas descargar:
 
 Para fines de pruebas, puedes descargar todos los binarios desde <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> aquí</a>
 
-Luego, crea una carpeta llamada bin con los binarios dentro, copia <a href="./config.toml">este config.toml</a> y corre:
+Luego, crea una carpeta llamada bin con los binarios dentro y copia <a href="./config.toml">este config.toml</a>, tu carpeta deberia verse como esto:
+
+![](../../../.images/local-network/zombienet-folder.png)
+
+has que todos los binarios sean ejecutables:
+
+```sh
+sudo chmod +x polkadot
+sudo chmod +x polkadot-parachain
+sudo chmod +x trappist-collator
+sudo chmod +x zombienet-linux
+```
+
+corre:
 
 ```sh
 # or ./zombienet-macos
