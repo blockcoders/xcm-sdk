@@ -26,7 +26,20 @@ You need to download:
 
 For test purposes you can donwload all chains binaries from <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> here</a>
 
-Then, create a folder called bin with all binaries inside, copy <a href="./config.toml">this config.toml</a> and run with:
+Then, create a folder called bin with all binaries inside and copy <a href="./config.toml">this config.toml</a>, your folder should look like this:
+
+![](../../../.images/local-network/zombienet-folder.png)
+
+make all binaries executable:
+
+```sh
+sudo chmod +x polkadot
+sudo chmod +x polkadot-parachain
+sudo chmod +x trappist-collator
+sudo chmod +x zombienet-linux
+```
+
+run:
 
 ```sh
 # or ./zombienet-macos
