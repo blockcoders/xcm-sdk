@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env ./node_modules/.bin/ts-node-script
 
-import { usage } from 'yargs'
+import yargs from 'yargs'
 import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../src/commands/utils'
 
-usage('$0 <command> [args]')
+yargs
+  .usage('$0 <command> [args]')
   .strict()
   .command(
     'limitedReserveTransferAssets [..args]',
@@ -45,5 +46,5 @@ usage('$0 <command> [args]')
       executeCommand(argv, SUPPORTED_METHODS.limitedTeleportAssets)
     },
   )
-  .demandCommand(1, 'You need to especify one method')
+  .demandCommand(1, 'You need to especify a method')
   .help().argv

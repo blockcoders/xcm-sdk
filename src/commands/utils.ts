@@ -93,9 +93,9 @@ export const executeCommand = async (args: any, method: SUPPORTED_METHODS) => {
 
   console.log(extrinsicArgs)
 
+  console.log('Sending tx..')
   const res = await provider[method](extrinsicArgs)
 
-  console.log('Sending tx..')
   console.log('tx send!')
   console.log('result: ', res)
   process.exit(1)
