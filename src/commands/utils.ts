@@ -1,8 +1,16 @@
 import { Keyring } from '@polkadot/api'
 import { KeyringPair } from '@polkadot/keyring/types'
-import { options } from 'yargs'
+import { cryptoWaitReady } from '@polkadot/util-crypto'
+import { Provider } from '../provider'
 
-const args = options({
+export enum SUPPORTED_METHODS {
+  reserveTransferAssets = 'reserveTransferAssets',
+  limitedReserveTransferAssets = 'limitedReserveTransferAssets',
+  teleportAssets = 'teleportAssets',
+  limitedTeleportAssets = 'limitedTeleportAssets',
+}
+
+export const commonArgsOptions = {
   rpc: { type: 'string', demandOption: true },
   mnemonic: { type: 'string', demandOption: true },
   /*
@@ -28,9 +36,9 @@ const args = options({
     Weight
   */
   weightLimit: { type: 'string', alias: 'wl' },
-}).argv as any
+}
 
-export const getArgsValues = () => {
+export const getArgsValues = (args: any) => {
   const rpc = args['rpc']
   const mnemonic = args['mnemonic']
   const destinationV = args['destV']
@@ -69,4 +77,23 @@ export const getSender = (mnemonic: string) => {
   sender = keyring.addFromMnemonic(mnemonic)
 
   return sender
+}
+
+export const executeCommand = async (args: any, method: SUPPORTED_METHODS) => {
+  await cryptoWaitReady()
+
+  new Keyring({ type: 'sr25519' })
+
+  const { rpc, mnemonic, ...extrinsicArgs } = args
+
+  const sender = getSender(mnemonic)
+
+  const provider = new Provider(rpc, sender)
+
+  const res = await provider[method](extrinsicArgs)
+
+  console.log('Sending tx..')
+  console.log(res)
+  console.log('tx send!')
+  console.log('result: ', res)
 }

@@ -12,6 +12,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "bin": {
+    "xcm-sdk": "bin/index.ts"
+  },
   "scripts": {
     "test": "mocha -t 120000 --require ts-node/register src/**/*.spec.ts --exit",
     "test:watch": "NODE_ENV=test mocha -t 120000 --watch --watch-files src/**/*.ts --require ts-node/register src/**/*.spec.ts",
