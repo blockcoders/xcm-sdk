@@ -25,7 +25,8 @@
     "build-esm": "tsc -p tsconfig.build.json --outDir lib.esm -t es2015 -m es2015",
     "lint:ci": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "prepublishOnly": "npm run lint:ci && npm run test && npm run build-all"
+    "prepublishOnly": "npm run lint:ci && npm run test && npm run build-all",
+    "teleportAssets": "ts-node ./src/scripts/teleportAssets --"
   },
   "precommit": [
     "lint:ci",
@@ -50,10 +51,10 @@
     "multi-asset"
   ],
   "devDependencies": {
-    "@polkadot/typegen": "^9.11.3",
-    "@polkadot/types": "^9.11.3",
     "@polkadot/api": "^9.11.3",
     "@polkadot/keyring": "^10.2.6",
+    "@polkadot/typegen": "^9.11.3",
+    "@polkadot/types": "^9.11.3",
     "@polkadot/util": "^10.2.6",
     "@polkadot/util-crypto": "^10.2.6",
     "@types/chai": "^4.3.4",
@@ -63,17 +64,17 @@
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "chai": "^4.3.7",
-    "chai-as-promised": "^7.1.1",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
-    "sinon": "^15.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^2.8.3",
+    "sinon": "^15.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },
@@ -82,5 +83,9 @@
     "@polkadot/keyring": "^10.2.6",
     "@polkadot/util": "^10.2.6",
     "@polkadot/util-crypto": "^10.2.6"
+  },
+  "dependencies": {
+    "@types/yargs": "^17.0.22",
+    "yargs": "^17.6.2"
   }
 }
