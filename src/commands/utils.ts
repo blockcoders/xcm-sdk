@@ -1,6 +1,7 @@
 import { Keyring } from '@polkadot/api'
 import { KeyringPair } from '@polkadot/keyring/types'
 import { cryptoWaitReady } from '@polkadot/util-crypto'
+import { Options as YargsOptions } from 'yargs'
 import { Provider } from '../provider'
 
 export enum SUPPORTED_METHODS {
@@ -10,28 +11,28 @@ export enum SUPPORTED_METHODS {
   limitedTeleportAssets = 'limitedTeleportAssets',
 }
 
-export const commonArgsOptions = {
+export const commonArgsOptions: { [key: string]: YargsOptions } = {
   rpc: { type: 'string', demandOption: true },
   mnemonic: { type: 'string', demandOption: true },
   /*
     Destination
 
   */
-  destination: { type: 'string', alias: 'dest' },
+  destination: { type: 'string', alias: 'dest', default: 'Here' },
   destinationValue: { type: 'string', alias: 'destV' },
-  destinationParents: { type: 'string', alias: 'destP' },
+  destinationParents: { type: 'number', alias: 'destP', default: 0 },
   /*
     Beneficiary
   */
-  beneficiary: { type: 'string', alias: 'ben' },
-  beneficiaryValue: { type: 'string', alias: 'benV' },
+  beneficiary: { type: 'string', alias: 'ben', demandOption: true },
+  beneficiaryValue: { type: 'string', alias: 'benV', demandOption: true },
   /*
     Asset
   */
-  amount: { type: 'string', alias: 'a' },
-  feeAsset: { type: 'string', alias: 'feeAsset' },
-  assetParents: { type: 'string', alias: 'assetP' },
-  assetId: { type: 'string', alias: 'assetId' },
+  amount: { type: 'number', alias: 'a', default: 0, number: true, demandOption: true },
+  feeAsset: { type: 'string', alias: 'feeAsset', default: 0, number: true },
+  assetParents: { type: 'string', alias: 'assetP', default: 0, number: true },
+  assetId: { type: 'string', alias: 'assetId', default: 0, number: true },
   /*
     Weight
   */
@@ -90,10 +91,12 @@ export const executeCommand = async (args: any, method: SUPPORTED_METHODS) => {
 
   const provider = new Provider(rpc, sender)
 
+  console.log(extrinsicArgs)
+
   const res = await provider[method](extrinsicArgs)
 
   console.log('Sending tx..')
-  console.log(res)
   console.log('tx send!')
   console.log('result: ', res)
+  process.exit(1)
 }

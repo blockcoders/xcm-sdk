@@ -1,29 +1,49 @@
 #!/usr/bin/env node
 
-import { command } from 'yargs'
+import { usage } from 'yargs'
 import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../src/commands/utils'
 
-command(
-  'teleportAsset [..args]',
-  'aa',
-  function (yargs) {
-    return yargs.option('u', {
-      alias: 'url',
-      describe: 'the URL to make an HTTP request to',
-    })
-  },
-  function (argv) {
-    console.log(argv)
-  },
-).argv
-
-command(
-  'limitedTeleportAsset [..args]',
-  'aa',
-  function (yargs) {
-    return yargs.options(commonArgsOptions as any)
-  },
-  function (argv) {
-    executeCommand(argv, SUPPORTED_METHODS.limitedTeleportAssets)
-  },
-).argv
+usage('$0 <command> [args]')
+  .strict()
+  .command(
+    'limitedReserveTransferAssets [..args]',
+    'aa',
+    function (yargs) {
+      return yargs.options(commonArgsOptions as any)
+    },
+    function (argv) {
+      executeCommand(argv, SUPPORTED_METHODS.limitedReserveTransferAssets)
+    },
+  )
+  .command(
+    'reserveTransferAssets [..args]',
+    'aa',
+    function (yargs) {
+      return yargs.options(commonArgsOptions as any)
+    },
+    function (argv) {
+      executeCommand(argv, SUPPORTED_METHODS.reserveTransferAssets)
+    },
+  )
+  .command(
+    'teleportAssets [..args]',
+    'aa',
+    function (yargs) {
+      return yargs.options(commonArgsOptions as any)
+    },
+    function (argv) {
+      executeCommand(argv, SUPPORTED_METHODS.teleportAssets)
+    },
+  )
+  .command(
+    'limitedTeleportAssets [..args]',
+    'aa',
+    function (yargs) {
+      return yargs.options(commonArgsOptions as any)
+    },
+    function (argv) {
+      executeCommand(argv, SUPPORTED_METHODS.limitedTeleportAssets)
+    },
+  )
+  .demandCommand(1, 'You need to especify one method')
+  .help().argv
