@@ -1,6 +1,6 @@
-#!/usr/bin/env npx ts-node
+#!/usr/bin/env node
 import { usage } from 'yargs'
-import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../src/commands/utils'
+import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../commands/utils'
 
 usage('$0 <command> [args]')
   .strict()
