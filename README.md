@@ -359,7 +359,22 @@ see token transfered:
 
 ## Cli Usage
 
-< description >
+xcm sdk is also a command-line interface tool that helps you to transfer and teleport assets between chains.
+
+install
+```sh
+npm i -g xcm-sdk
+```
+
+
+There are 4 commands availables:
+
+```sh
+xcm-sdk limitedReserveTransferAssets [..args]
+xcm-sdk reserveTransferAssets [..args]
+xcm-sdk teleportAssets [...args]
+xcm-sdk limitedTeleportAssets [..args]
+```
 
 command:
 ![](.images/cli/cli.png)
