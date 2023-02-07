@@ -1,13 +1,13 @@
 CLI Examples
 ====
 
-## Local network config:
+## Local network config
 
-See <a href="./src/examples/local-network/readme.md">Our tutorial</a> to make a local network with zombienet
+See <a href="./src/examples/local-network/readme.md">Our tutorial</a> to make a local network with zombienet.
 
-## Local networke examples
+## Local network examples
 
-### Relay to parachain
+### Relay to parachain (from Alice account)
 
 TeleportAssets:
 ```sh
@@ -17,7 +17,7 @@ xcm-sdk teleportAssets \
 --dest Parachain \
 --destV 1000 \
 --ben AccountId32 \
---benV FoQJpPyadYccjavVdTWxpxU7rUEaYhfLCPwXgkfD6Zat9QP \
+--benV '<statamine account>' \
 --a 1000000000000
 ```
 
@@ -29,11 +29,11 @@ xcm-sdk limitedTeleportAssets \
 --dest Parachain \
 --destV 1000 \
 --ben AccountId32 \
---benV FoQJpPyadYccjavVdTWxpxU7rUEaYhfLCPwXgkfD6Zat9QP \
+--benV '<statamine account>' \
 --a 1000000000000
 ```
 
-### Parachain to Relay
+### Parachain to Relay (from Alice account)
 
 LimitedTeleportAssets:
 ```sh
@@ -42,11 +42,11 @@ xcm-sdk limitedTeleportAssets \
 --mnemonic //Alice \
 --destP 1 \
 --ben AccountId32 \
---benV 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty \
+--benV <relay chain account> \
 --assetP 1 \
 --a 1000000000000
 ```
-### Statemine to trappist
+### Statemine to trappist (from Alice account)
 
 ```sh
 xcm-sdk limitedReserveTransferAssets \
@@ -56,7 +56,7 @@ xcm-sdk limitedReserveTransferAssets \
 --destV 2000 \
 --destP 1 \
 --ben AccountId32 \
---benV 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty \
+--benV <trappist account> \
 --assetId 1 \
 --a 1000000000000
 ```
@@ -74,7 +74,7 @@ xcm-sdk teleportAssets \
 --dest Parachain \
 --destV 1000 \
 --ben AccountId32 \
---benV FP2c5N7fgNaUuBSD5E5G4RjPMQkVwz9NAZdp4LZFtKSPbmW \
+--benV '<rococo destination account>' \
 --a 1000000000000
 ```
 
@@ -96,21 +96,6 @@ xcm-sdk limitedTeleportAssets \
 xcm-sdk limitedTeleportAssets \
 --rpc wss://rococo-rockmine-rpc.polkadot.io \
 --mnemonic '<account mnemonic>' \
---destP 1 \
---ben AccountId32 \
---benV '<rococo destination account>' \
---assetP 1 \
---a 1000000000000
-```
-
-### RockMine to Dali
-
-```sh
-xcm-sdk limitedTeleportAssets \
---rpc wss://rococo-rockmine-rpc.polkadot.io \
---mnemonic '<account mnemonic>' \
---dest Parachain
---destV 2110
 --destP 1 \
 --ben AccountId32 \
 --benV '<rococo destination account>' \
