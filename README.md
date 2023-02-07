@@ -353,9 +353,76 @@ manually:
 see token transfered:
 ![](.images/mangata-roc.png)
 
-## Other examples
+### Other examples
 
 <a href="./src/examples/local-network/readme.md">local network examples</a>
+
+## Cli Usage
+
+< description >
+
+command:
+![](.images/cli/cli.png)
+
+args:
+
+<table>
+  <tr>
+    <th>Arg</th>
+    <th>Mean</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>--dest</td>
+    <td>destination</td>
+    <td>The destination to transfer the asset. If you want to transfer asset from relaychain to a parachain set 'Parachain'. Default 'Here'. </td>
+  </tr>
+  <tr>
+    <td>--destP</td>
+    <td>Destination Parents</td>
+    <td>0 is default, 1 when you want to transfer from parachain to relaychain or parachain to parachain</td>
+  </tr>
+  <tr>
+    <td>--destV</td>
+    <td>Destination Value</td>
+    <td>The destination value, for example a parachain id</td>
+  </tr>
+  <tr>
+    <td>--ben</td>
+    <td>Beneficiary</td>
+    <td>beneficary target, an accountId32</td>
+  </tr>
+  <tr>
+    <td>--benP</td>
+    <td>Beneficiary Parents</td>
+    <td>0 is default</td>
+  </tr>
+  <tr>
+    <td>--benV</td>
+    <td>Beneficiary Value</td>
+    <td>The beneficiary value, account address to send the asset</td>
+  </tr>
+  <tr>
+    <td>--a</td>
+    <td>Amount</td>
+    <td>token amount to transfer</td>
+  </tr>
+  <tr>
+    <td style="white-space: nowrap;">--assetId</td>
+    <td>Asset Id</td>
+    <td>AssetId to transfer from parachain, make sure the parchain support the asset and the sender account have enough asset to transfer</td>
+  </tr>
+  <tr>
+    <td>--wl</td>
+    <td>Weight Limit</td>
+    <td>Optional, only for limited methods. Set the maximum weight for the extrinsic</td>
+  </tr>
+</table>
+
+### Cli examples
+
+<a href="./cli-examples.md">See cli examples</a>
+
 
 ## Testing
 

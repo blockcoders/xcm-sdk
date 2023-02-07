@@ -1,7 +1,11 @@
-CLI
+CLI Examples
 ====
 
-## Local network:
+## Local network config:
+
+See <a href="./src/examples/local-network/readme.md">Our tutorial</a> to make a local network with zombienet
+
+## Local networke examples
 
 ### Relay to parachain
 
@@ -113,4 +117,3 @@ xcm-sdk limitedTeleportAssets \
 --assetP 1 \
 --a 1000000000000
 ```
-5EsQwm2F3KMejFMzSNR2N74jEm8WhHAxunitRQ4bn66wea6F

@@ -5,8 +5,8 @@ import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../command
 usage('$0 <command> [args]')
   .strict()
   .command(
-    'limitedReserveTransferAssets [..args]',
-    'aa',
+    'limitedReserveTransferAssets --args',
+    '',
     function (yargs) {
       return yargs.options(commonArgsOptions as any)
     },
@@ -15,8 +15,8 @@ usage('$0 <command> [args]')
     },
   )
   .command(
-    'reserveTransferAssets [..args]',
-    'aa',
+    'reserveTransferAssets --args',
+    '',
     function (yargs) {
       return yargs.options(commonArgsOptions as any)
     },
@@ -25,8 +25,8 @@ usage('$0 <command> [args]')
     },
   )
   .command(
-    'teleportAssets [..args]',
-    'aa',
+    'teleportAssets --args',
+    '',
     function (yargs) {
       return yargs.options(commonArgsOptions as any)
     },
@@ -35,8 +35,8 @@ usage('$0 <command> [args]')
     },
   )
   .command(
-    'limitedTeleportAssets [..args]',
-    'aa',
+    'limitedTeleportAssets --args',
+    '',
     function (yargs) {
       return yargs.options(commonArgsOptions as any)
     },
