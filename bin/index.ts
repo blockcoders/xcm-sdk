@@ -1,10 +1,8 @@
-#!/usr/bin/env ./node_modules/.bin/ts-node-script
-
-import yargs from 'yargs'
+#!/usr/bin/env npx ts-node
+import { usage } from 'yargs'
 import { commonArgsOptions, executeCommand, SUPPORTED_METHODS } from '../src/commands/utils'
 
-yargs
-  .usage('$0 <command> [args]')
+usage('$0 <command> [args]')
   .strict()
   .command(
     'limitedReserveTransferAssets [..args]',
