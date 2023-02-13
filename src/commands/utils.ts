@@ -91,8 +91,6 @@ export const executeCommand = async (args: any, method: SUPPORTED_METHODS) => {
 
   const provider = new Provider(rpc, sender)
 
-  console.log(extrinsicArgs)
-
   console.log('Sending tx..')
   const res = await provider[method](extrinsicArgs)
 

@@ -254,108 +254,195 @@ manually:
   });
 ```
 
-### Send native Asset (ROC) from RockMine to Dali
-
-The ROC asset in Dali is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
-
-command:
-```ts
-npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
-```
-
-manually:
-```ts
-  const destination = "Parachain";
-  const destinationValue = 2087; // dali parachain id
-  const destinationParents = 1;
-  const beneficiary = "AccountId32";
-  const beneficiaryValue = "<dali account address>";
-  const assetParents = 1; // native asset (ROC)
-  const amount = 1000000000000000;
-
-  const res = await provider.limitedReserveTransferAssets({
-    destination,
-    destinationValue,
-    destinationParents,
-    beneficiary,
-    beneficiaryValue,
-    assetParents,
-    amount,
-  });
-```
-
-
-see token transfered:
-![](.images/dali-token.png)
-
-### Send Asset from Rockmine to dali
-
-<b>Make sure </b> you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
-
-The Rockmine USD asset in Dali is the asset with id 130. You can check <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 130.
-
-command:
-
-```ts
-npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
-```
-
-manually:
-```ts
-  const destination = "Parachain"
-  const destinationValue = 2087
-  const destinationParents = 1
-  const beneficiary = 'AccountId32'
-  const beneficiaryValue = "<dali account address>"
-  const assetId = 1984   // asset id in rockmine
-  const amount = 1000000000000000
-
-
-  const res = await provider.limitedReserveTransferAssets({
-    destination,
-    destinationValue,
-    beneficiary,
-    beneficiaryValue,
-    amount,
-  });
-```
-
-see token transfered:
-![](.images/dali-usdr.png)
-
-
-### Send Asset from Rococo to Mangata
-
-The ROC asset in Mangata is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
-
-command:
-
-```ts
-npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
-```
-
-manually:
-```ts
-  const destination = "Parachain"
-  const destinationValue = 2110 // Mangata parchain id
-  const beneficiary = "AccountId32"
-  const beneficiaryValue = "<mangata account address>" // account address
-  const amount = 1000000000000000
-
-  const res = await provider.reserveTransferAssets({
-    destination,
-    destinationValue,
-    beneficiary,
-    beneficiaryValue,
-    amount,
-  });
-```
-see token transfered:
-![](.images/mangata-roc.png)
-
 ### Other examples
 
 <a href="./src/examples/local-network/readme.md">local network examples</a>
+
+## Support for other pallets and methods
+
+The sdk also has a method to make custom extrinsics defined by the user. You can call any pallet, method and pass the body to that method on your own.
+
+```ts
+provider.extrinsic(params)
+```
+<table>
+  <tr>
+    <th>Param</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>asSudo</td>
+    <td>pass true if you want to execute the extrinsic as sudo, default is false</td>
+  </tr>
+  <tr>
+    <td>pallet</td>
+    <td>The pallet to call, for example: "polkadotXcm", "xcmPallet"</td>
+  </tr>
+  <tr>
+    <td>method</td>
+    <td>The method to call in the pallet, for example: "reserveTransferAssets"</td>
+  </tr>
+  <tr>
+    <td>body</td>
+    <td>The arguments for the method, can be an array or an object</td>
+  </tr>
+</table>
+
+## examples
+
+### Teleport asset
+
+From Rococo to Rockmine usign extrinsic method, using body as an object:
+
+```ts
+const pallet = "xcmPallet"
+const method = "limitedTeleportAssets"
+const body = {
+    dest: {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            Parachain: 1000,
+          },
+        },
+      },
+    },
+    beneficiary: {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            AccountId32: {
+              network: 'Any',
+              id: u8aToHex(decodeAddress('5EsQwm2F3KMejFMzSNR2N74jEm8WhHAxunitRQ4bn66wea6F')),
+            },
+          },
+        },
+      },
+    },
+    assets: {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: 'Here',
+            },
+          },
+          fun: {
+            Fungible: 100000000000,
+          },
+        },
+      ],
+    },
+    feeAssetItem: 0,
+    weightLimit: 'Unlimited',
+  }
+
+const res = await provider.extrinsic({
+    pallet,
+    method,
+    body,
+})
+```
+Teleport asset from Rococo to Rockmine usign extrinsic method, using body as an array:
+```ts
+const pallet = "xcmPallet"
+const method = "limitedTeleportAssets"
+const body = [
+    // dest
+    {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            Parachain: 1000,
+          },
+        },
+      },
+    },
+
+    // beneficiary
+    {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            AccountId32: {
+              network: 'Any',
+              id: u8aToHex(decodeAddress('5EsQwm2F3KMejFMzSNR2N74jEm8WhHAxunitRQ4bn66wea6F')),
+            },
+          },
+        },
+      },
+    },
+
+    // assets
+    {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: 'Here',
+            },
+          },
+          fun: {
+            Fungible: 100000000000,
+          },
+        },
+      ],
+    },
+
+    // feeAssetItem
+    0,
+
+    // weigthLimit
+    'Unlimited',
+  ]
+
+const res = await provider.extrinsic({
+    pallet,
+    method,
+    body,
+})
+```
+
+### Asset multilocation
+
+From <a href="#"> local network example </a>, to set an asset on trappist as multilocation in statemine:
+
+```ts
+const pallet = "assetRegistry"
+const method = "registerReserveAsset"
+const body = {
+  assetId: 1, // local asset id
+  assetMultiLocation: {
+    parents: 1,
+    interior: {
+      X3: [
+        {
+          Parachain: 1000,
+        },
+        {
+          PalletInstance: 50,
+        },
+        {
+          GeneralIndex: 1,
+        },
+      ],
+    },
+  },
+}
+
+const res = await relayProvider.extrinsic({
+  asSudo: true,
+  pallet: 'assetRegistry',
+  method: 'registerReserveAsset',
+  body,
+})
+```
 
 ## Cli Usage
 
