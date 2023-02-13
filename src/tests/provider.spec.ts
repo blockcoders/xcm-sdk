@@ -2,7 +2,14 @@ import { ApiPromise, WsProvider } from '@polkadot/api'
 import * as Keyring from '@polkadot/keyring'
 import { assert, expect } from 'chai'
 import sinon from 'sinon'
-import { chainSpecsMock, injectorMock, SIGNER_MOCK, xcmPalletMock, XCM_PALLET_RESPONSES } from './mocks/provider-mocks'
+import {
+  chainSpecsMock,
+  genericBodyMock,
+  injectorMock,
+  SIGNER_MOCK,
+  xcmPalletMock,
+  XCM_PALLET_RESPONSES,
+} from './mocks/provider-mocks'
 import { Provider } from '../provider'
 
 describe('Provider', () => {
@@ -429,6 +436,54 @@ describe('Provider', () => {
         assert.fail('actual', 'expected', "It shouldn't work ")
       } catch (error) {
         expect(String(error)).to.equal('Error: No reserveTransferAssets method found')
+      }
+    })
+  })
+
+  describe('generic extrinsic', () => {
+    it('should call xcmPallet and reserveTransferAssets method', async () => {
+      sinon.stub(ApiPromise, 'create').returns({
+        tx: {
+          xcmPallet: {
+            reserveTransferAssets: xcmPalletMock.reserveTransferAssets,
+          },
+        },
+      } as any)
+      const keyring = new Keyring.default({ type: 'sr25519' })
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic)
+      const rpc = chainSpecsMock.rpc
+      const provider = new Provider(rpc, sender)
+
+      const res = await provider.extrinsic({
+        pallet: 'xcmPallet',
+        method: 'reserveTransferAssets',
+        body: genericBodyMock,
+      })
+      expect(res).to.equal(XCM_PALLET_RESPONSES.reserveTransferAssets)
+    })
+
+    it('should show error', async () => {
+      sinon.stub(ApiPromise, 'create').returns({
+        tx: {
+          xTokens: {
+            transfer: () => null,
+          },
+        },
+      } as any)
+      const keyring = new Keyring.default({ type: 'sr25519' })
+      const sender = keyring.addFromMnemonic(chainSpecsMock.senderMnemonic)
+      const rpc = chainSpecsMock.rpc
+      const provider = new Provider(rpc, sender)
+
+      try {
+        await provider.extrinsic({
+          pallet: 'xTokens',
+          method: 'reserveTransferAssets',
+          body: genericBodyMock,
+        })
+        assert.fail('actual', 'expected', "It shouldn't work ")
+      } catch (error) {
+        expect(String(error)).to.equal('Error: reserveTransferAssets method unsupported')
       }
     })
   })

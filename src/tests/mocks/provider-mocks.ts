@@ -107,3 +107,42 @@ export const injectorMock = {
     update: () => null,
   },
 }
+
+export const genericBodyMock = {
+  dest: {
+    V1: {
+      parents: 1,
+      interior: 'Here',
+    },
+  },
+  beneficiary: {
+    V1: {
+      parents: 0,
+      interior: {
+        X1: {
+          AccountId32: {
+            network: 'Any',
+            id: chainSpecsMock.parachainAccount,
+          },
+        },
+      },
+    },
+  },
+  assets: {
+    V1: [
+      {
+        id: {
+          Concrete: {
+            parents: 1,
+            interior: 'Here',
+          },
+        },
+        fun: {
+          Fungible: 100000000000,
+        },
+      },
+    ],
+  },
+  feeAssetItem: 0,
+  weightLimit: 'Unlimited',
+}

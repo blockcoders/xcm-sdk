@@ -185,37 +185,33 @@ export class Provider {
   }
 
   public async extrinsic(props: ExtrinsicParam) {
-    try {
-      const api = await this.getApi()
-      const pallet = getPallet(api, props.pallet)
+    const api = await this.getApi()
+    const pallet = getPallet(api, props.pallet)
 
-      if (!api.tx[pallet][props.method]) {
-        throw new Error(`${props.method} method unsupported`)
-      }
+    if (!api.tx[pallet][props.method]) {
+      throw new Error(`${props.method} method unsupported`)
+    }
 
-      const body = parseGenericBody(props.body)
+    const body = parseGenericBody(props.body)
 
-      let extrinsic = api.tx[pallet][props.method](...body)
+    let extrinsic = api.tx[pallet][props.method](...body)
 
-      if (props.asSudo) {
-        extrinsic = api.tx.sudo.sudo(extrinsic)
-      }
+    if (props.asSudo) {
+      extrinsic = api.tx.sudo.sudo(extrinsic)
+    }
 
-      return new Promise(async (res, rej) => {
-        extrinsic.signAndSend(this.signer, ({ status, txHash, dispatchError, dispatchInfo }: any) => {
-          formatExtrinsicResponse({
-            api,
-            res,
-            rej,
-            status,
-            txHash,
-            dispatchError,
-            dispatchInfo,
-          })
+    return new Promise(async (res, rej) => {
+      extrinsic.signAndSend(this.signer, ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+        formatExtrinsicResponse({
+          api,
+          res,
+          rej,
+          status,
+          txHash,
+          dispatchError,
+          dispatchInfo,
         })
       })
-    } catch (error) {
-      return error
-    }
+    })
   }
 }
