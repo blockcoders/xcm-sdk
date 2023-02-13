@@ -4,17 +4,17 @@ import { Provider } from '../../provider'
 import { localNetworkUtils } from '../local-network/local-network-utils'
 
 const main = async () => {
-  const rpc = localNetworkUtils.relayRpc
+  const relayRpc = localNetworkUtils.relayRpc
 
   await cryptoWaitReady()
 
   const keyring = new Keyring({ type: 'sr25519' })
   const sender = keyring.addFromUri('//Alice')
 
-  const provider = new Provider(rpc, sender)
+  const relayProvider = new Provider(relayRpc, sender)
 
   const body = {
-    id: 0,
+    id: 1000, // parachain id
     xcm: {
       V2: [
         {
@@ -31,7 +31,8 @@ const main = async () => {
     },
   }
 
-  const res = await provider.extrinsic({
+  const res = await relayProvider.extrinsic({
+    asSudo: true,
     pallet: 'parasSudoWrapper',
     method: 'sudoQueueDownwardXcm',
     body,
@@ -42,4 +43,5 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
-npx ts-node src/examples/extrinsic-generics/test.ts */
+npx ts-node src/examples/extrinsic-generics/create-sufficient-asset.ts
+*/
