@@ -1,8 +1,8 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import { Signer } from '@polkadot/types/types'
-import { AddressOrPair, MultiLocationTypes } from './interfaces/generics'
+import { AddressOrPair, MultiLocationTypes, ExtrinsicParam } from './interfaces/generics'
 import { TransferAssetsProps, LimitedTransferAssetsProps } from './interfaces/methods'
-import { getPallet } from './utils'
+import { getPallet, parseGenericBody } from './utils'
 import { makeXcmVersionedMultiLocation, makeAsssetMultiAsset, formatExtrinsicResponse } from './utils'
 
 export class Provider {
@@ -182,5 +182,40 @@ export class Provider {
           })
         })
     })
+  }
+
+  public async extrinsic(props: ExtrinsicParam) {
+    try {
+      const api = await this.getApi()
+      const pallet = getPallet(api, props.pallet)
+
+      if (!api.tx[pallet][props.method]) {
+        throw new Error(`${props.method} method unsupported`)
+      }
+
+      const body = parseGenericBody(props.body)
+
+      let extrinsic = api.tx[pallet][props.method](...body)
+
+      if (props.asSudo) {
+        extrinsic = api.tx.sudo.sudo(extrinsic)
+      }
+
+      return new Promise(async (res, rej) => {
+        extrinsic.signAndSend(this.signer, ({ status, txHash, dispatchError, dispatchInfo }: any) => {
+          formatExtrinsicResponse({
+            api,
+            res,
+            rej,
+            status,
+            txHash,
+            dispatchError,
+            dispatchInfo,
+          })
+        })
+      })
+    } catch (error) {
+      return error
+    }
   }
 }

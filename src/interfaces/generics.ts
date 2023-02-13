@@ -51,3 +51,16 @@ export interface DestParam {
   dest: destination
   version: 'V1'
 }
+
+export type GenericBody =
+  | any[]
+  | {
+      [key: string]: any
+    }
+
+export interface ExtrinsicParam {
+  asSudo?: boolean
+  pallet?: string
+  method: string
+  body: GenericBody
+}
