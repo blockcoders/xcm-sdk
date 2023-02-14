@@ -78,6 +78,7 @@ const sender = keyring.addFromMnemonic("<your mnemonic seed here>");
 ```
 
 Si quieres firmar con la extensión de polkadotjs
+
 ```ts
 import { web3FromAddress, web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 
@@ -90,7 +91,6 @@ const injector = await web3FromAddress(accountId);
 const provider = new Provider(rpc, accountId);
 provider.setInjectorSigner(injector.signer);
 ```
-
 
 ## Metodos soportados
 
@@ -162,6 +162,7 @@ Si quieres hacer pruebas en Testnet, tienes Rococo.
 Consigue algunos activos: <a href="https://app.element.io/#/room/#rococo-faucet:matrix.org">Rococo faucet</a>
 
 ### Config
+
 Los ejemplos están en ./examples/rococo/, puede poner tu configuración en ./examples/rococo/rococo-examples-util.ts. Luego puedes ejecutar un comando por cada ejemplo. Si quieres ejecutarlos de forma manual, debes crear tu propio script (.js o .ts) e importar las dependencias.
 
 ```ts
@@ -183,6 +184,7 @@ export const rococoExampleUtils = {
 ### Enviar activos de Rococo a Rockmine
 
 comando:
+
 ```ts
 npx ts-node src/examples/rococo/rococo-to-rockmine.ts
 ```
@@ -208,11 +210,13 @@ const res = await provider.limitedTeleportAssets({
 o
 
 comando:
+
 ```ts
 npx ts-node src/examples/rococo/rococo-to-rockmine-no-limited.ts
 ```
 
 manual:
+
 ```ts
   const destination = "Parachain"
   const destinationValue = 2000 // Rockmine parchain id
@@ -230,7 +234,9 @@ manual:
 ```
 
 ### Enviar activos de RockMine a Rococo
+
 comando:
+
 ```ts
 npx ts-node src/examples/rococo/rockmine-to-rococo.ts
 ```
@@ -263,6 +269,7 @@ npx ts-node src/examples/rococo/rococo-to-mangata-no-limited.ts
 ```
 
 manual:
+
 ```ts
   const destination = "Parachain"
   const destinationValue = 2110 // Mangata parchain id
@@ -278,6 +285,7 @@ manual:
     amount,
   });
 ```
+
 ver token transferido:
 ![](.images/mangata-roc.png)
 
@@ -292,6 +300,7 @@ El sdk también tiene un método para hacer extrinsics personalizados definidos 
 ```ts
 provider.customExtrinsic(params)
 ```
+
 <table>
   <tr>
     <th>Parámetro</th>
@@ -322,11 +331,13 @@ provider.customExtrinsic(params)
 Desde Rococo a Rockmine utilizando el cuerpo como objeto:
 
 comando:
+
 ```sh
 npx ts-node src/examples/custom-extrinsic/teleport-relaychain-to-parachain.ts
 ```
 
 manual:
+
 ```ts
 const pallet = "xcmPallet"
 const method = "limitedTeleportAssets"
@@ -379,6 +390,7 @@ const res = await provider.customExtrinsic({
     body,
 })
 ```
+
 De Rococo a Rockmine utilizando el cuerpo como un arreglo:
 
 ```ts
@@ -446,11 +458,13 @@ const res = await provider.customExtrinsic({
 De Rockmine a Rococo:
 
 comando:
+
 ```sh
 npx ts-node src/examples/custom-extrinsic/teleport-parachain-to-relay.ts
 ```
 
 manual:
+
 ```ts
 const pallet = 'xcmPallet'
 const method = 'limitedTeleportAssets'
@@ -505,11 +519,13 @@ const body = {
 De <a href="./src/examples/local-network/readme-es.md">este ejemplo de red local</a>, para marcar un activo en trappist como multilocalización:
 
 comando:
+
 ```sh
 npx ts-node src/examples/custom-extrinsic/mark-asset-as-multilocation.ts
 ```
 
 manual:
+
 ```ts
 const pallet = "assetRegistry"
 const method = "registerReserveAsset"
@@ -546,6 +562,7 @@ const res = await provider.customExtrinsic({
 xcm sdk es también una herramienta de interfaz de línea de comandos que te ayuda a transferir y teletransportar activos entre cadenas.
 
 instalar:
+
 ```sh
 npm i -g xcm-sdk
 ```
