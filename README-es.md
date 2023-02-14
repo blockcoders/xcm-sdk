@@ -307,11 +307,11 @@ provider.customExtrinsic(params)
   </tr>
   <tr>
     <td>method</td>
-    <td>El método a llamar en la paleta, por ejemplo: "reservaTransferenciaActivos"</td>
+    <td>El método a llamar en la paleta, por ejemplo: "reserveTransferAssets"</td>
   </tr>
   <tr>
     <td>body</td>
-    <td>Los argumentos para el método, pueden ser un array o un objeto</td>
+    <td>Los argumentos para el método, pueden ser un arreglo o un objeto</td>
   </tr>
 </table>
 
@@ -379,7 +379,7 @@ const res = await provider.customExtrinsic({
     body,
 })
 ```
-De Rococo a Rockmine using extrinsic method, body as an array:
+De Rococo a Rockmine utilizando el cuerpo como un arreglo:
 
 ```ts
 const pallet = "xcmPallet"
@@ -443,14 +443,14 @@ const res = await provider.customExtrinsic({
 })
 ```
 
-From Rockmine to Rococo:
+De Rockmine a Rococo:
 
-command:
+comando:
 ```sh
 npx ts-node src/examples/custom-extrinsic/teleport-parachain-to-relay.ts
 ```
 
-manually:
+manual:
 ```ts
 const pallet = 'xcmPallet'
 const method = 'limitedTeleportAssets'
@@ -500,7 +500,7 @@ const body = {
   })
 ```
 
-### Asset multilocation
+### Multilocalización de asset
 
 De <a href="./src/examples/local-network/readme-es.md">este ejemplo de red local</a>, para marcar un activo en trappist como multilocalización:
 
@@ -545,7 +545,7 @@ const res = await provider.customExtrinsic({
 
 xcm sdk es también una herramienta de interfaz de línea de comandos que te ayuda a transferir y teletransportar activos entre cadenas.
 
-instalar
+instalar:
 ```sh
 npm i -g xcm-sdk
 ```
@@ -562,7 +562,7 @@ xcm-sdk limitedTeleportAssets [..args]
 comando:
 ![](.images/cli/cli.png)
 
-argumentps:
+argumentos:
 
 <table>
   <tr>
@@ -613,7 +613,7 @@ argumentps:
   </tr>
 </table>
 
-### Ejemplos del cli
+### Ejemplos del CLI
 
 <a href="./cli-examples-es.md">Ver ejemplos del cli</a>
 

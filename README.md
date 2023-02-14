@@ -381,7 +381,7 @@ const res = await provider.customExtrinsic({
     body,
 })
 ```
-De Rococo a Rockmine utilizando el cuerpo como un arreglo:
+From Rococo to Rockmine using body as an array:
 
 ```ts
 const pallet = "xcmPallet"
@@ -445,14 +445,14 @@ const res = await provider.customExtrinsic({
 })
 ```
 
-De Rockmine a Rococo:
+From Rockmine to Rococo:
 
-comando:
+command:
 ```sh
 npx ts-node src/examples/custom-extrinsic/teleport-parachain-to-relay.ts
 ```
 
-manual:
+manually:
 ```ts
 const pallet = 'xcmPallet'
 const method = 'limitedTeleportAssets'
@@ -502,7 +502,7 @@ const body = {
   })
 ```
 
-### Asset multilocation
+### Asset Multilocation
 
 From <a href="./src/examples/local-network/readme.md">this local network example</a>, to set an asset on trappist as multilocation:
 
@@ -547,7 +547,7 @@ const res = await provider.customExtrinsic({
 
 xcm sdk is also a command-line interface tool that helps you to transfer and teleport assets between chains.
 
-install
+install:
 ```sh
 npm i -g xcm-sdk
 ```
@@ -615,7 +615,7 @@ args:
   </tr>
 </table>
 
-### Cli examples
+### CLI examples
 
 <a href="./cli-examples.md">See cli examples</a>
 
