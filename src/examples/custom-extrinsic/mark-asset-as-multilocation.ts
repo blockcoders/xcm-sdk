@@ -33,7 +33,7 @@ const main = async () => {
     },
   }
 
-  const res = await relayProvider.extrinsic({
+  const res = await relayProvider.customExtrinsic({
     asSudo: true,
     pallet: 'assetRegistry',
     method: 'registerReserveAsset',
@@ -45,5 +45,5 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
-npx ts-node src/examples/extrinsic-generics/mark-asset-as-multilocation.ts
+npx ts-node src/examples/custom-extrinsic/mark-asset-as-multilocation.ts
 */

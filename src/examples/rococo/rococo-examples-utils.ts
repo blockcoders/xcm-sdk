@@ -4,7 +4,7 @@ export const rococoExampleUtils = {
   rockMineParachainId: 1000,
   mangataParachainId: 2110,
   daliParachainId: 2087,
-  senderMnemonic: 'dress wrong blame rabbit amateur lounge glad parrot alien circle child sister',
+  senderMnemonic: '',
   rockmineDestinationAccount: '',
   daliDestinationAccount: '',
   rococoDestinationAccount: '',

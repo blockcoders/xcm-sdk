@@ -184,7 +184,7 @@ export class Provider {
     })
   }
 
-  public async extrinsic(props: ExtrinsicParam) {
+  public async customExtrinsic(props: ExtrinsicParam) {
     const api = await this.getApi()
     const pallet = getPallet(api, props.pallet)
 

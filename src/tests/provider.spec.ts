@@ -454,7 +454,7 @@ describe('Provider', () => {
       const rpc = chainSpecsMock.rpc
       const provider = new Provider(rpc, sender)
 
-      const res = await provider.extrinsic({
+      const res = await provider.customExtrinsic({
         pallet: 'xcmPallet',
         method: 'reserveTransferAssets',
         body: genericBodyMock,
@@ -476,7 +476,7 @@ describe('Provider', () => {
       const provider = new Provider(rpc, sender)
 
       try {
-        await provider.extrinsic({
+        await provider.customExtrinsic({
           pallet: 'xTokens',
           method: 'reserveTransferAssets',
           body: genericBodyMock,

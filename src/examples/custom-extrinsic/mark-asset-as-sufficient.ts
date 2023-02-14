@@ -31,7 +31,7 @@ const main = async () => {
     },
   }
 
-  const res = await relayProvider.extrinsic({
+  const res = await relayProvider.customExtrinsic({
     asSudo: true,
     pallet: 'parasSudoWrapper',
     method: 'sudoQueueDownwardXcm',
@@ -43,5 +43,5 @@ const main = async () => {
 main().then(() => process.exit(1))
 
 /**
-npx ts-node src/examples/extrinsic-generics/create-sufficient-asset.ts
+npx ts-node src/examples/custom-extrinsic/create-sufficient-asset.ts
 */
