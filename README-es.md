@@ -613,6 +613,10 @@ argumentps:
   </tr>
 </table>
 
+### Ejemplos del cli
+
+<a href="./cli-examples-es.md">Ver ejemplos del cli</a>
+
 ## Probar
 
 Ejecución de las pruebas unitarias.
