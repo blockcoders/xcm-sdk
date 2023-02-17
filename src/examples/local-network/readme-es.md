@@ -3,28 +3,7 @@ Configurar Red Local
 
 Este es un tutorial para ejecutar una red local con una relay chain de rococo y dos parachains (statemin y trappist)
 
-Necesitas descargar:
-
-<ul>
-  <li>
-    Zombienet para linux linux macOs
-    <a href="https://github.com/paritytech/zombienet/releases">aquí</a>
-  </li>
-  <li>
-    Binario de Polkadot
-    <a href="https://github.com/paritytech/polkadot/releases">aquí</a>
-  </li>
-  <li>
-    Binario de Polkadot-parachain
-    <a href="https://github.com/paritytech/cumulus/releases">aquí</a>
-  </li>
-  <li>
-    Binario Trappist-collator binary, necesitas clonar y construir el binario desde
-    <a href="https://github.com/paritytech/trappist">aquí</a>
-  </li>
-</ul>
-
-Para fines de pruebas, puedes descargar todos los binarios desde <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> aquí</a>
+Necesitas descargar     <a href="https://github.com/paritytech/zombienet/releases">Zombienet para linux linux macOs</a> y para fines de pruebas, hemos preparado algunos binarios de parachain que  puedes descargar todos los binarios desde <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> aquí</a>
 
 Luego, crea una carpeta llamada bin con los binarios dentro y copia <a href="./config.toml">este config.toml</a>, tu carpeta deberia verse como esto:
 
@@ -56,6 +35,8 @@ Hay una configuración por defecto:
   <li>Relay chain está en el puerto 9900</li>
   <li>Statemine Parachain está en el puerto 9910 con <Strong> id 1000 </strong> </li>
   <li>Trappist Parachain está en el puerto 9920 con <strong> id 2000 </strong> </li>
+    <li>Otra Trappist Parachain está en el puerto 9920 con <strong> id 2000 </strong> </li>
+
 </ul>
 
 

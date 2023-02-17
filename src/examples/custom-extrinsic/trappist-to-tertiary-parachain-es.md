@@ -1,20 +1,20 @@
-import Keyring from '@polkadot/keyring'
-import { u8aToHex } from '@polkadot/util'
-import { cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto'
-import { Provider } from '../../provider'
-import { localNetworkUtils } from '../local-network/local-network-utils'
+Ejemplos de extrinsic personalizado
+=======
 
-const main = async () => {
-  const trappistRpc = localNetworkUtils.parachain2Rpc
+Este es un tutorial para utilizar el método de ejecución de la paleta polkadotXcm para reservar la transferencia de activos de trappist a un parachain terciaria que se ejecuta en una red local.
 
-  await cryptoWaitReady()
+En primer lugar, es necesario configurar una <a href="../local-network/readme-es.md">red local</a>, asegúrese de que ya ha <a href="../local-network/readme-es.md#config-assets">configurado los activos</a>. A continuación, mintear algunos activos a Alice en statamine y <a href="../local-network/readme-es.md#transfer-xusd-from-statemine-to-txusd-on-trappist"> reservar la transferencia de algunos xUSD de statemine a trappist </a>.
 
-  const keyring = new Keyring({ type: 'sr25519' })
-  const sender = keyring.addFromUri('//Alice')
+Para reservar transferencia de txUSD a pxUSD en parachain terciaria (parachain con id 3000 en nodo local):
 
-  const trappistProvider = new Provider(trappistRpc, sender)
+comando:
+```sh
+npx ts-node src/examples/custom-extrinsic/reserve-transfer-from-trappist-parachain-to-tertiary-parachain.ts
+```
 
-  const body = {
+o manual:
+```ts
+ const body = {
     message: {
       V2: [
         {
@@ -111,7 +111,7 @@ const main = async () => {
                             X1: {
                               AccountId32: {
                                 network: 'Any',
-                                id: u8aToHex(decodeAddress(localNetworkUtils.parachain3AliceAccount)),
+                                id: u8aToHex(decodeAddress('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY')), // alice account address
                               },
                             },
                           },
@@ -129,16 +129,30 @@ const main = async () => {
     maxWeight: 10_000_000_000,
   }
 
-  const res = await trappistProvider.customExtrinsic({
+  const res = await provider.customExtrinsic({
     pallet: 'polkadotXcm',
     method: 'execute',
     body,
   })
-  console.log(res)
-}
+```
 
-main().then(() => process.exit(1))
+Este método tarda unos minutos en completarse, va de trappist a statemine y luego a la parachain con id 3000. Deberías ver los eventos en cada parachain en polkadotjs.
 
-/**
-npx ts-node src/examples/custom-extrinsic/reserve-transfer-from-trappist-parachain-to-tertiary-parachain.ts
-*/
+eventos en trappist (origen):
+
+![](../../../.images/custom-extrinsic/trappist.png)
+
+
+eventos en statemine:
+
+![](../../../.images/custom-extrinsic/statemine.png)
+
+eventos en parachain terciaria (destino):
+
+![](../../../.images/custom-extrinsic/tertiary.png)
+
+assets transferidos en la parachain 3000 (pxUSD):
+
+![](../../../.images/custom-extrinsic/pxUSD-transfered.png)
+
+Este ejemplo fuera realizado siguiendo <a href="https://youtu.be/UfxU3hUprKo?t=1760">este video</a> y <a href="https://github.com/paritytech/trappist/blob/master/xcm-simulator/src/tests/xcm_use_cases.rs#L224-L358">este ejemplo</a>.
