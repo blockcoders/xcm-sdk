@@ -64,6 +64,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.14.0",
     "@types/sinon": "^10.0.13",
+    "@types/yargs": "^17.0.22",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "chai": "^4.3.7",
@@ -87,7 +88,6 @@
     "@polkadot/util-crypto": "^10.2.6"
   },
   "dependencies": {
-    "@types/yargs": "^17.0.22",
     "yargs": "^17.7.0"
   }
 }
