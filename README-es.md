@@ -1,12 +1,13 @@
 XCM SDK
 =======
 
-[![npm](https://img.shields.io/npm/v/xcm-sdk)](https://www.npmjs.com/package/xcm-sdk)
 [![CircleCI](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main.svg?style=svg)](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main)
 [![Coverage Status](https://coveralls.io/repos/github/blockcoders/xcm-sdk/badge.svg?branch=main)](https://coveralls.io/github/blockcoders/xcm-sdk?branch=main)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/943e9d8d050d4f129d2a2c63afdd419b)](https://www.codacy.com/gh/blockcoders/xcm-sdk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blockcoders/xcm-sdk&amp;utm_campaign=Badge_Grade)
-[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![CodeQL](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml)
+[![npm](https://img.shields.io/npm/v/xcm-sdk?label=version&logo=npm)](https://www.npmjs.com/package/xcm-sdk)
+[![npm](https://img.shields.io/npm/dw/xcm-sdk?logo=npm)](https://www.npmjs.com/package/xcm-sdk?activeTab=versions)
+[![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/xcm-sdk)](https://snyk.io/test/github/blockcoders/xcm-sdk)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 ## Acerca
 
