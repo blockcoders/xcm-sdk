@@ -1,9 +1,9 @@
 CLI Examples
-====
+============
 
 ## Local network config
 
-See <a href="./src/examples/local-network/readme.md">Our tutorial</a> to make a local network with zombienet.
+See <a href="../src/examples/local-network/readme.md">Our tutorial</a> to make a local network with zombienet.
 
 ## Local network examples
 

@@ -1,9 +1,9 @@
 Ejemplos del CLI
-====
+================
 
 ## Configuración de red local
 
-Ve <a href="./src/examples/local-network/readme-es.md">nuestro tutorial</a> para levantar una red local usando zombienete.
+Ve <a href="../src/examples/local-network/readme-es.md">nuestro tutorial</a> para levantar una red local usando zombienete.
 
 ## Ejemplos de red local
 

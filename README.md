@@ -563,7 +563,8 @@ xcm-sdk teleportAssets [...args]
 xcm-sdk limitedTeleportAssets [..args]
 ```
 
-command:
+commands:
+
 ![](.images/cli/cli.png)
 
 args:
@@ -618,7 +619,7 @@ args:
 
 ### CLI examples
 
-<a href="./cli-examples.md">See cli examples</a>
+<a href="./.docs/cli-examples.md">See cli examples</a>
 
 
 ## Testing
