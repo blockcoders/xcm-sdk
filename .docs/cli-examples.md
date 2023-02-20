@@ -42,7 +42,7 @@ xcm-sdk limitedTeleportAssets \
 --mnemonic //Alice \
 --destP 1 \
 --ben AccountId32 \
---benV <relay chain account> \
+--benV '<relay chain account>' \
 --assetP 1 \
 --a 1000000000000
 ```
@@ -56,7 +56,7 @@ xcm-sdk limitedReserveTransferAssets \
 --destV 2000 \
 --destP 1 \
 --ben AccountId32 \
---benV <trappist account> \
+--benV '<trappist account>' \
 --assetId 1 \
 --a 1000000000000
 ```
