@@ -1,7 +1,7 @@
 import { ApiPromise } from '@polkadot/api'
 import { u8aToHex } from '@polkadot/util'
 import { decodeAddress } from '@polkadot/util-crypto'
-import { XcmVersionedMultiLocation } from './interfaces/generics'
+import { GenericBody, XcmVersionedMultiLocation } from './interfaces/generics'
 import { MakeXcmVersionedMultiAssetsProps, MakeXcmVersionedMultiLocationProps } from './interfaces/utils-interfaces'
 
 export const makeXcmVersionedMultiLocation = ({
@@ -89,7 +89,12 @@ export const formatExtrinsicResponse = ({ res, rej, status, txHash, dispatchErro
   }
 }
 
-export const getPallet = (api: ApiPromise) => {
+export const getPallet = (api: ApiPromise, pallet?: string) => {
+  if (pallet) {
+    if (!api.tx[pallet]) throw new Error(`${pallet} unsupported`)
+    return pallet
+  }
+
   const palletIsIncluded = Object.keys(api.tx).some((p) => ['xcmPallet', 'polkadotXcm'].includes(p))
 
   if (!palletIsIncluded) {
@@ -97,4 +102,12 @@ export const getPallet = (api: ApiPromise) => {
   }
 
   return api.tx.xcmPallet ? 'xcmPallet' : 'polkadotXcm'
+}
+
+export const parseGenericBody = (body: GenericBody) => {
+  if (Array.isArray(body)) return body
+
+  const _body = Object.keys(body).map((key: any) => body[key])
+
+  return _body
 }

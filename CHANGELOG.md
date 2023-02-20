@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0
+Published by **[blockcoders](https://github.com/blockcoders)** on **2023/03/01**
+- [#12](https://github.com/blockcoders/xcm-sdk/pull/12) Milestone2
+
 ## 0.0.1
 Published by **[blockcoders](https://github.com/blockcoders)** on **2023/02/20**
 - [#11](https://github.com/blockcoders/xcm-sdk/pull/11) update readme

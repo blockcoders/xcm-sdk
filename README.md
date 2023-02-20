@@ -1,12 +1,13 @@
 XCM SDK
 =======
 
-[![npm](https://img.shields.io/npm/v/xcm-sdk)](https://www.npmjs.com/package/xcm-sdk)
 [![CircleCI](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main.svg?style=svg)](https://circleci.com/gh/blockcoders/xcm-sdk/tree/main)
 [![Coverage Status](https://coveralls.io/repos/github/blockcoders/xcm-sdk/badge.svg?branch=main)](https://coveralls.io/github/blockcoders/xcm-sdk?branch=main)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/943e9d8d050d4f129d2a2c63afdd419b)](https://www.codacy.com/gh/blockcoders/xcm-sdk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=blockcoders/xcm-sdk&amp;utm_campaign=Badge_Grade)
-[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![CodeQL](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/blockcoders/xcm-sdk/actions/workflows/codeql-analysis.yml)
+[![npm](https://img.shields.io/npm/v/xcm-sdk?label=version&logo=npm)](https://www.npmjs.com/package/xcm-sdk)
+[![npm](https://img.shields.io/npm/dw/xcm-sdk?logo=npm)](https://www.npmjs.com/package/xcm-sdk?activeTab=versions)
+[![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/xcm-sdk)](https://snyk.io/test/github/blockcoders/xcm-sdk)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 ## About
 
@@ -254,76 +255,6 @@ manually:
   });
 ```
 
-### Send native Asset (ROC) from RockMine to Dali
-
-The ROC asset in Dali is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.composablefinance.ninja#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
-
-command:
-```ts
-npx ts-node src/examples/rococo/rockmine-to-dali-roc.ts
-```
-
-manually:
-```ts
-  const destination = "Parachain";
-  const destinationValue = 2087; // dali parachain id
-  const destinationParents = 1;
-  const beneficiary = "AccountId32";
-  const beneficiaryValue = "<dali account address>";
-  const assetParents = 1; // native asset (ROC)
-  const amount = 1000000000000000;
-
-  const res = await provider.limitedReserveTransferAssets({
-    destination,
-    destinationValue,
-    destinationParents,
-    beneficiary,
-    beneficiaryValue,
-    assetParents,
-    amount,
-  });
-```
-
-
-see token transfered:
-![](.images/dali-token.png)
-
-### Send Asset from Rockmine to dali
-
-<b>Make sure </b> you have <a href="https://polkadot.js.org/apps/#/assets/balances"> assets </a> to transfer. It is also necessary to change the asset id in ./examples/rococo/rockmine-to-dali-asset.ts, default is 1984 (Rockmine USD).
-
-The Rockmine USD asset in Dali is the asset with id 130. You can check <a href="https://polkadot.js.org/apps/#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 130.
-
-command:
-
-```ts
-npx ts-node src/examples/rococo/rockmine-to-dali-asset.ts
-```
-
-manually:
-```ts
-  const destination = "Parachain"
-  const destinationValue = 2087
-  const destinationParents = 1
-  const beneficiary = 'AccountId32'
-  const beneficiaryValue = "<dali account address>"
-  const assetId = 1984   // asset id in rockmine
-  const amount = 1000000000000000
-
-
-  const res = await provider.limitedReserveTransferAssets({
-    destination,
-    destinationValue,
-    beneficiary,
-    beneficiaryValue,
-    amount,
-  });
-```
-
-see token transfered:
-![](.images/dali-usdr.png)
-
-
 ### Send Asset from Rococo to Mangata
 
 The ROC asset in Mangata is the asset with id 4. You can check <a href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Froccoco-testnet-collator-01.mangatafinance.cloud#/chainstate">here</a>, in "SELECTED STATE QUERY" select tokens, then in u128 input put 4.
@@ -353,9 +284,343 @@ manually:
 see token transfered:
 ![](.images/mangata-roc.png)
 
-## Other examples
+### Other examples
 
 <a href="./src/examples/local-network/readme.md">local network examples</a>
+
+## Support for other pallets and methods
+
+The sdk also has a method to make custom extrinsics defined by the user. You can call any pallet and method and passing a custom body to that method on your own.
+
+```ts
+provider.customExtrinsic(params)
+```
+<table>
+  <tr>
+    <th>Param</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>asSudo</td>
+    <td>pass true if you want to execute the extrinsic as sudo, default is false</td>
+  </tr>
+  <tr>
+    <td>pallet</td>
+    <td>The pallet to call, for example: "polkadotXcm", "xcmPallet"</td>
+  </tr>
+  <tr>
+    <td>method</td>
+    <td>The method to call in the pallet, for example: "reserveTransferAssets"</td>
+  </tr>
+  <tr>
+    <td>body</td>
+    <td>The arguments for the method, can be an array or an object</td>
+  </tr>
+</table>
+
+## Examples
+
+### Teleport asset
+
+From Rococo to Rockmine using body as an object:
+
+command:
+```sh
+npx ts-node src/examples/custom-extrinsic/teleport-relaychain-to-parachain.ts
+```
+
+manually:
+```ts
+const pallet = "xcmPallet"
+const method = "limitedTeleportAssets"
+const body = {
+    dest: {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            Parachain: 1000,
+          },
+        },
+      },
+    },
+    beneficiary: {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            AccountId32: {
+              network: 'Any',
+              id: u8aToHex(decodeAddress("<rockmine address account>")),
+            },
+          },
+        },
+      },
+    },
+    assets: {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: 'Here',
+            },
+          },
+          fun: {
+            Fungible: 100000000000,
+          },
+        },
+      ],
+    },
+    feeAssetItem: 0,
+    weightLimit: 'Unlimited',
+  }
+
+const res = await provider.customExtrinsic({
+    pallet,
+    method,
+    body,
+})
+```
+From Rococo to Rockmine using body as an array:
+
+```ts
+const pallet = "xcmPallet"
+const method = "limitedTeleportAssets"
+const body = [
+    // dest
+    {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            Parachain: 1000,
+          },
+        },
+      },
+    },
+
+    // beneficiary
+    {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            AccountId32: {
+              network: 'Any',
+              id: u8aToHex(decodeAddress("<rockmine address account>")),
+            },
+          },
+        },
+      },
+    },
+
+    // assets
+    {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 0,
+              interior: 'Here',
+            },
+          },
+          fun: {
+            Fungible: 100000000000,
+          },
+        },
+      ],
+    },
+
+    // feeAssetItem
+    0,
+
+    // weigthLimit
+    'Unlimited',
+  ]
+
+const res = await provider.customExtrinsic({
+    pallet,
+    method,
+    body,
+})
+```
+
+From Rockmine to Rococo:
+
+command:
+```sh
+npx ts-node src/examples/custom-extrinsic/teleport-parachain-to-relay.ts
+```
+
+manually:
+```ts
+const pallet = 'xcmPallet'
+const method = 'limitedTeleportAssets'
+const body = {
+    dest: {
+      V1: {
+        parents: 1,
+        interior: 'Here',
+      },
+    },
+    beneficiary: {
+      V1: {
+        parents: 0,
+        interior: {
+          X1: {
+            AccountId32: {
+              network: 'Any',
+              id: u8aToHex(decodeAddress('<rococo address account>')),
+            },
+          },
+        },
+      },
+    },
+    assets: {
+      V1: [
+        {
+          id: {
+            Concrete: {
+              parents: 1,
+              interior: 'Here',
+            },
+          },
+          fun: {
+            Fungible: 100000000000,
+          },
+        },
+      ],
+    },
+    feeAssetItem: 0,
+    weightLimit: 'Unlimited',
+  }
+
+  const res = await provider.customExtrinsic({
+    pallet,
+    method,
+    body,
+  })
+```
+
+### Asset Multilocation
+
+From <a href="./src/examples/local-network/readme.md">this local network example</a>, to set an asset on trappist as multilocation:
+
+command:
+```sh
+npx ts-node src/examples/custom-extrinsic/mark-asset-as-multilocation.ts
+```
+
+manually:
+```ts
+const pallet = "assetRegistry"
+const method = "registerReserveAsset"
+const body = {
+  assetId: 1, // local asset id
+  assetMultiLocation: {
+    parents: 1,
+    interior: {
+      X3: [
+        {
+          Parachain: 1000,
+        },
+        {
+          PalletInstance: 50,
+        },
+        {
+          GeneralIndex: 1,
+        },
+      ],
+    },
+  },
+}
+
+const res = await provider.customExtrinsic({
+  asSudo: true,
+  pallet,
+  method,
+  body,
+})
+```
+
+## CLI Usage
+
+xcm sdk is also a command-line interface tool that helps you to transfer and teleport assets between chains.
+
+install:
+```sh
+npm i -g xcm-sdk
+```
+
+
+There are 4 commands availables:
+
+```sh
+xcm-sdk limitedReserveTransferAssets [..args]
+xcm-sdk reserveTransferAssets [..args]
+xcm-sdk teleportAssets [...args]
+xcm-sdk limitedTeleportAssets [..args]
+```
+
+commands:
+
+![](.images/cli/cli.png)
+
+args:
+
+<table>
+  <tr>
+    <th>Arg</th>
+    <th>Meaning</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>--dest</td>
+    <td>destination</td>
+    <td>The destination to transfer the asset. If you want to transfer asset from relaychain to a parachain set 'Parachain'. Default 'Here'. </td>
+  </tr>
+  <tr>
+    <td>--destP</td>
+    <td>Destination Parents</td>
+    <td>0 is default, 1 when you want to transfer from parachain to relaychain</td>
+  </tr>
+  <tr>
+    <td>--destV</td>
+    <td>Destination Value</td>
+    <td>The destination value, for example a parachain id</td>
+  </tr>
+  <tr>
+    <td>--ben</td>
+    <td>Beneficiary</td>
+    <td>beneficary target, an accountId32</td>
+  </tr>
+  <tr>
+    <td>--benV</td>
+    <td>Beneficiary Value</td>
+    <td>The beneficiary value, account address to send the asset</td>
+  </tr>
+  <tr>
+    <td>--a</td>
+    <td>Amount</td>
+    <td>token amount to transfer</td>
+  </tr>
+  <tr>
+    <td style="white-space: nowrap;">--assetId</td>
+    <td>Asset Id</td>
+    <td>AssetId to transfer from parachain, make sure the parchain support the asset and the sender account have enough asset to transfer</td>
+  </tr>
+  <tr>
+    <td>--wl</td>
+    <td>Weight Limit</td>
+    <td>Optional, only for limited methods. Set the maximum weight for the extrinsic</td>
+  </tr>
+</table>
+
+### CLI examples
+
+<a href="./.docs/cli-examples.md">See cli examples</a>
+
 
 ## Testing
 

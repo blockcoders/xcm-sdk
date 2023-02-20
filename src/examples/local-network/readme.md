@@ -3,28 +3,14 @@ Local Network Config
 
 This is a tutorial to run a local network with a rococo relay chain and two parachain (statemint and trappist).
 
-You need to download:
+You need to download <a href="https://github.com/paritytech/zombienet/releases">Zombienet for linux or macOs</a> and for test purposes we've prepared some parachain binaries that you can donwload all chains binaries from:
 
 <ul>
-  <li>
-    Zombienet for linux or macOs
-    <a href="https://github.com/paritytech/zombienet/releases">here</a>
-  </li>
-  <li>
-    Polkadot binary
-    <a href="https://github.com/paritytech/polkadot/releases">here</a>
-  </li>
-  <li>
-    Polkadot-parachain binary
-    <a href="https://github.com/paritytech/cumulus/releases">here</a>
-  </li>
-  <li>
-    Trappist-collator binary, you need to clone and build it from
-    <a href="https://github.com/paritytech/trappist">here</a>
-  </li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot">Polkadot</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot-parachain">Polkadot Parachain</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Ftrappist-collator">Trappist Collator</a></li>
 </ul>
 
-For test purposes you can donwload all chains binaries from <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> here</a>
 
 Then, create a folder called bin with all binaries inside and copy <a href="./config.toml">this config.toml</a>, your folder should look like this:
 
@@ -56,6 +42,7 @@ There is a default config:
   <li>Relay chain is in port 9900</li>
   <li>Statemine Parachain is in port 9910 with <Strong> id 1000 </strong> </li>
   <li>Trappist Parachain is in port 9920 with <strong> id 2000 </strong> </li>
+  <li>Otrher Trappist Parachain is in port 9930 with <strong> id 3000 </strong> </li>
 </ul>
 
 ## Config Assets
@@ -70,7 +57,7 @@ npx ts-node src/examples/local-network/config-assets.ts
 
 Then, mint some asset to Alice (for the examples) or any account. We recommend to mint 10000000 (1 million of xUSD) to have enough xUSD to test transfers.
 
-If you want to create you own assets, you can follow <a href="./manually-config-assets.md">this guide</a> that we're prepared.
+If you want to create you own assets, you can follow <a href="./manually-config-assets.md">this guide</a> that we've prepared.
 
 ## Examples
 

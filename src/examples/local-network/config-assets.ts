@@ -20,6 +20,10 @@ const main = async () => {
     provider: new WsProvider(localNetworkUtils.parachain2Rpc),
   })
 
+  const paraCProvider = await ApiPromise.create({
+    provider: new WsProvider(localNetworkUtils.parachain3Rpc),
+  })
+
   console.log('creating assets...')
   const extrinsicCreateAssetParaA = paraAProvider.tx.utility.batchAll([
     paraAProvider.tx.assets.create(1, sender.address, 100000000000),
@@ -36,6 +40,14 @@ const main = async () => {
 
   await extrinsicCreateAssetParaB.signAndSend(sender)
   console.log('txUSD created on trappist')
+
+  const extrinsicCreateAssetParaC = paraCProvider.tx.utility.batchAll([
+    paraCProvider.tx.assets.create(1, sender.address, 100000000000),
+    paraCProvider.tx.assets.setMetadata(1, 'pxUSD', 'pxUSD', 12),
+  ])
+
+  await extrinsicCreateAssetParaC.signAndSend(sender)
+  console.log('pxUSD created on stout')
 
   console.log('waiting for assets...')
   await new Promise((resolve) => setTimeout(resolve, 30000))
@@ -82,6 +94,29 @@ const main = async () => {
   )
 
   await extrinsicParab.signAndSend(sender)
+
+  console.log('setting pxUSD as multilocation...')
+
+  const extrinsicParaC = await paraCProvider.tx.sudo.sudo(
+    paraCProvider.tx.assetRegistry.registerReserveAsset(1, {
+      parents: 1,
+      interior: {
+        X3: [
+          {
+            Parachain: 1000,
+          },
+          {
+            PalletInstance: 50,
+          },
+          {
+            GeneralIndex: 1,
+          },
+        ],
+      },
+    }),
+  )
+
+  await extrinsicParaC.signAndSend(sender)
 
   console.log('done!')
 }
