@@ -53,32 +53,32 @@
     "multi-asset"
   ],
   "devDependencies": {
-    "@polkadot/api": "^9.11.3",
-    "@polkadot/keyring": "^10.2.6",
-    "@polkadot/typegen": "^9.11.3",
-    "@polkadot/types": "^9.11.3",
-    "@polkadot/util": "^10.2.6",
-    "@polkadot/util-crypto": "^10.2.6",
+    "@polkadot/api": "^9.14.2",
+    "@polkadot/keyring": "^10.4.2",
+    "@polkadot/typegen": "^9.14.2",
+    "@polkadot/types": "^9.14.2",
+    "@polkadot/util": "^10.4.2",
+    "@polkadot/util-crypto": "^10.4.2",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.14.0",
     "@types/sinon": "^10.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^8.32.0",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.4",
     "sinon": "^15.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "@polkadot/api": "^9.11.3",
@@ -88,6 +88,6 @@
   },
   "dependencies": {
     "@types/yargs": "^17.0.22",
-    "yargs": "^17.6.2"
+    "yargs": "^17.7.0"
   }
 }

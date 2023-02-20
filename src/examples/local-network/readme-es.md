@@ -3,7 +3,13 @@ Configurar Red Local
 
 Este es un tutorial para ejecutar una red local con una relay chain de rococo y dos parachains (statemin y trappist)
 
-Necesitas descargar     <a href="https://github.com/paritytech/zombienet/releases">Zombienet para linux linux macOs</a> y para fines de pruebas, hemos preparado algunos binarios de parachain que  puedes descargar todos los binarios desde <a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> aquí</a>
+Necesitas descargar     <a href="https://github.com/paritytech/zombienet/releases">Zombienet para linux linux macOs</a> y para fines de pruebas, hemos preparado algunos binarios de parachain que  puedes descargar todos los binarios desde:
+
+<ul>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot">Polkadot</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot-parachain">Polkadot Parachain</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Ftrappist-collator">Trappist Collator</a></li>
+</ul>
 
 Luego, crea una carpeta llamada bin con los binarios dentro y copia <a href="./config.toml">este config.toml</a>, tu carpeta deberia verse como esto:
 

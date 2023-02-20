@@ -3,7 +3,14 @@ Local Network Config
 
 This is a tutorial to run a local network with a rococo relay chain and two parachain (statemint and trappist).
 
-You need to download <a href="https://github.com/paritytech/zombienet/releases">Zombienet for linux or macOs</a> and for test purposes we've prepared some parachain binaries that you can donwload all chains binaries from<a href="https://drive.google.com/drive/folders/1JOZcJGkeNsLnQ7-1qC6RJx7fltkN4RY_?usp=sharing"> here</a>
+You need to download <a href="https://github.com/paritytech/zombienet/releases">Zombienet for linux or macOs</a> and for test purposes we've prepared some parachain binaries that you can donwload all chains binaries from:
+
+<ul>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot">Polkadot</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Fpolkadot-parachain">Polkadot Parachain</a></li>
+  <li><a href="https://blockcoders.nyc3.cdn.digitaloceanspaces.com/xcm-sdk%2Ftrappist-collator">Trappist Collator</a></li>
+</ul>
+
 
 Then, create a folder called bin with all binaries inside and copy <a href="./config.toml">this config.toml</a>, your folder should look like this:
 
@@ -36,7 +43,6 @@ There is a default config:
   <li>Statemine Parachain is in port 9910 with <Strong> id 1000 </strong> </li>
   <li>Trappist Parachain is in port 9920 with <strong> id 2000 </strong> </li>
   <li>Otrher Trappist Parachain is in port 9930 with <strong> id 3000 </strong> </li>
-
 </ul>
 
 ## Config Assets
