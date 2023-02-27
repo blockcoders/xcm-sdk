@@ -1,6 +1,6 @@
 {
   "name": "xcm-sdk",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0",
   "description": "XCM SDK is a tool that provides an interface to send XCM messages for Substrate based blockchains.",
   "author": "Blockcoders <engineering@blockcoders.io>",
   "license": "MIT",
@@ -62,14 +62,14 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.14.0",
+    "@types/node": "^18.14.2",
     "@types/sinon": "^10.0.13",
     "@types/yargs": "^17.0.22",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
@@ -88,6 +88,6 @@
     "@polkadot/util-crypto": "^10.2.6"
   },
   "dependencies": {
-    "yargs": "^17.7.0"
+    "yargs": "^17.7.1"
   }
 }

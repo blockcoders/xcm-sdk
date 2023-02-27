@@ -2,6 +2,7 @@
 
 ## 0.1.0
 Published by **[blockcoders](https://github.com/blockcoders)** on **2023/03/01**
+- [#13](https://github.com/blockcoders/xcm-sdk/pull/13) cli fixes
 - [#12](https://github.com/blockcoders/xcm-sdk/pull/12) Milestone2
 
 ## 0.0.1
